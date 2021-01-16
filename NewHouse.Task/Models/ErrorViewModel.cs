@@ -1,6 +1,6 @@
 using System;
 
-namespace WebApplication1.Models
+namespace NewHouse.Task.Models
 {
     public class ErrorViewModel
     {
