@@ -34,7 +34,7 @@ namespace NewHouse.Tasks
 
             services.AddControllersWithViews();
 
-            services.AddHangfire();
+            //services.AddHangfire();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -64,6 +64,7 @@ namespace NewHouse.Tasks
                     pattern: "{controller=Home}/{action=Index}/{id?}");
             });
 
+            return;
             // Hangfire
             app.UseHangfireServer();
             app.UseHangfireDashboard("/hangfire",
