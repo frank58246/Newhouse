@@ -1,13 +1,13 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
-using NewHouse.Task.Models;
+using NewHouse.Tasks.Models;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace NewHouse.Task.Controllers
+namespace NewHouse.Tasks.Controllers
 {
     public class HomeController : Controller
     {

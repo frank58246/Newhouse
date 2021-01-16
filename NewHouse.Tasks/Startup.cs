@@ -1,15 +1,19 @@
+using Hangfire;
+using Hangfire.Console;
+using Hangfire.Dashboard;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using NewHouse.Tasks.Infracture.DependencyInjection;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace NewHouse.Task
+namespace NewHouse.Tasks
 {
     public class Startup
     {
@@ -23,7 +27,14 @@ namespace NewHouse.Task
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.Scan(scan =>
+                scan.FromCallingAssembly()
+                    .AddClasses()
+                    .AsMatchingInterface());
+
             services.AddControllersWithViews();
+
+            services.AddHangfire();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -52,6 +63,20 @@ namespace NewHouse.Task
                     name: "default",
                     pattern: "{controller=Home}/{action=Index}/{id?}");
             });
+
+            // Hangfire
+            app.UseHangfireServer();
+            app.UseHangfireDashboard("/hangfire",
+                                     new DashboardOptions
+                                     {
+                                 //預設授權無法在線上環境使用 Hangfire.Dashboard.LocalRequestsOnlyAuthorizationFilter
+                                 //Authorization = new[] { new DashboardAuthorizationFilter() }
+
+                                 //AppPath = System.Web.VirtualPathUtility.ToAbsolute("~/"),
+                                 //DisplayStorageConnectionString = false,
+                                 //IsReadOnlyFunc = f => true
+                             }
+           );
         }
     }
 }

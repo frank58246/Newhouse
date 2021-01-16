@@ -7,7 +7,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace NewHouse.Task
+namespace NewHouse.Tasks
 {
     public class Program
     {
