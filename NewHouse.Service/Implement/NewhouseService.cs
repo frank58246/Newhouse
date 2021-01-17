@@ -32,6 +32,11 @@ namespace NewHouse.Service.Implement
         public async Task<Newhouse591Dto> FetchNewhouseAsync(int hid)
         {
             var model = await this._newhouse591Repository.FetchAsync(hid);
+
+            if (model.BuildName is null || model.BuildName == "")
+            {
+                return null;
+            }
             return this._mapper.Map<Newhouse591Dto>(model);
         }
 

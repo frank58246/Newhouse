@@ -25,6 +25,11 @@ namespace NewHouse.Tasks.Infracture.Jobs
         {
             context.WriteLine($"{DateTime.Now} 開始抓取591新建案，hid:{hid}");
             var newhouse = await this._newhouseService.FetchNewhouseAsync(hid);
+            if (newhouse is null)
+            {
+                context.WriteLine($"{DateTime.Now} 查無新建案");
+                return;
+            }
 
             var exist = await this._newhouseService.ExistAsync(hid);
             if (exist)

@@ -134,8 +134,8 @@ namespace NewHouse.Repository.Implement
                 return "";
             }
 
-            return needTrim ? values.SingleOrDefault().TextContent.Trim()
-                            : values.SingleOrDefault().TextContent;
+            return needTrim ? values.FirstOrDefault().TextContent.Trim()
+                            : values.FirstOrDefault().TextContent;
         }
     }
 }
