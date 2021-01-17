@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>netcoreapp3.1</TargetFramework>
@@ -6,6 +6,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\NewHouse.Common\NewHouse.Common.csproj" />
+    <ProjectReference Include="..\NewHouse.Repository\NewHouse.Repository.csproj" />
   </ItemGroup>
 
 </Project>

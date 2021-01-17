@@ -24,7 +24,7 @@ namespace NewHouse.Tasks.Infracture.Jobs
         public async Task FetchNewHouseAsync(PerformContext context, int hid)
         {
             context.WriteLine($"{DateTime.Now} 開始抓取hid:{hid}591新建案");
-            var newhouse = await this._newhouseService.FetchNewhouse(hid);
+            var newhouse = await this._newhouseService.FetchNewhouseAsync(hid);
 
             var exist = await this._newhouseService.Exist(hid);
             if (exist)

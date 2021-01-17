@@ -1,4 +1,5 @@
 ﻿using NewHouse.Common.Model;
+using NewHouse.Repository.Interface;
 using NewHouse.Service.Dtos;
 using NewHouse.Service.Interface;
 using System;
@@ -10,14 +11,22 @@ namespace NewHouse.Service.Implement
 {
     public class NewhouseService : INewhouseService
     {
+        private readonly INewhouse591Repository _newhouse591Repository;
+
+        public NewhouseService(INewhouse591Repository newhouse591Repository)
+        {
+            this._newhouse591Repository = newhouse591Repository;
+        }
+
         public Task<bool> Exist(int hid)
         {
             throw new NotImplementedException();
         }
 
-        public NewhouseDto FetchNewhouse(int hid)
+        public async Task<NewhouseDto> FetchNewhouseAsync(int hid)
         {
-            throw new NotImplementedException();
+            var model = await this._newhouse591Repository.FetchAsync(hid);
+            return null;
         }
 
         public Task<IResult> InsertAsync(NewhouseDto newhouse)
@@ -30,9 +39,5 @@ namespace NewHouse.Service.Implement
             throw new NotImplementedException();
         }
 
-        Task<NewhouseDto> INewhouseService.FetchNewhouse(int hid)
-        {
-            throw new NotImplementedException();
-        }
     }
 }

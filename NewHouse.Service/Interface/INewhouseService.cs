@@ -17,7 +17,7 @@ namespace NewHouse.Service.Interface
         /// </summary>
         /// <param name="hid"></param>
         /// <returns></returns>
-        Task<NewhouseDto> FetchNewhouse(int hid);
+        Task<NewhouseDto> FetchNewhouseAsync(int hid);
 
         /// <summary>
         /// 指定新建案是否存在

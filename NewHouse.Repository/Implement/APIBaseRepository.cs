@@ -1,4 +1,5 @@
-﻿using NewHouse.Common.Extension;
+﻿using AngleSharp;
+using NewHouse.Common.Extension;
 using NewHouse.Common.Helper;
 using System;
 using System.Collections.Generic;
@@ -13,7 +14,7 @@ namespace NewHouse.Repository.Implement
     /// </summary>
     public class APIBaseRepository
     {
-        private readonly HttpClient _httpClient;
+        protected readonly HttpClient _httpClient;
 
         protected readonly IWebsiteUrlHelper _websiteUrlHelper;
 
@@ -28,6 +29,7 @@ namespace NewHouse.Repository.Implement
             var response = await this._httpClient.GetAsync(url);
 
             var result = await response.ContentAsync<TResponse>();
+
 
             return result;          
         }

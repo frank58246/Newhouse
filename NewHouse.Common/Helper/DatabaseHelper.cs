@@ -8,11 +8,6 @@ namespace NewHouse.Common.Helper
     public class DatabaseHelper : IDatabaseHelper
     {
         public string Hangfire => "Data Source=localhost,1433;Initial Catalog=Hangfire;User Id=SA;Password=qazwsx123456!";
-
-        void aa() 
-        {
-            var a = new Result();
-
-        }
+    
     }
 }

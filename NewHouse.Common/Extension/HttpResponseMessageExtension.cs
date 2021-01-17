@@ -15,7 +15,6 @@ namespace NewHouse.Common.Extension
         {
             var responseString = await responseMessage.Content.ReadAsStringAsync();
 
-
             if (responseMessage.StatusCode != HttpStatusCode.OK)
             {
                 var exception = new APIException()
@@ -28,9 +27,8 @@ namespace NewHouse.Common.Extension
             }
 
             try
-            {
-                var response = JsonConvert.DeserializeObject<T>(responseString);
-                return response;
+            {              
+                return JsonConvert.DeserializeObject<T>(responseString);
             }
             catch (Exception)
             {
@@ -42,9 +40,26 @@ namespace NewHouse.Common.Extension
                     Content = responseString
                 };
                 throw exception;
-            }
-        
+            }        
         }
-       
+
+
+        public static async Task<string> ContentStringAsync(this HttpResponseMessage responseMessage)
+        {
+            var responseString = await responseMessage.Content.ReadAsStringAsync();
+
+            if (responseMessage.StatusCode == HttpStatusCode.OK)
+            {
+                return responseString;
+            }
+
+            var exception = new APIException()
+            {
+                StatusCode = responseMessage.StatusCode,
+                Url = responseMessage.RequestMessage.RequestUri.AbsoluteUri.ToString(),
+                Content = responseString
+            };
+            throw exception;
+        }
     }
 }
