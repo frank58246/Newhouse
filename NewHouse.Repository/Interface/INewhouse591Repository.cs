@@ -8,6 +8,6 @@ namespace NewHouse.Repository.Interface
 {
     public interface INewhouse591Repository
     {
-        Task<NewhouseModel> FetchAsync(int hid);
+        Task<Newhouse591Model> FetchAsync(int hid);
     }
 }

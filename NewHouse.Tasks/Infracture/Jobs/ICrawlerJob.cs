@@ -1,4 +1,5 @@
-﻿using Hangfire.Server;
+﻿using Hangfire;
+using Hangfire.Server;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,6 +12,7 @@ namespace NewHouse.Tasks.Infracture.Jobs
     /// </summary>
     public interface ICrawlerJob
     {
+        [AutomaticRetry(Attempts = 0)]
         Task FetchNewHouseAsync(PerformContext context, int hid);
     }
 }

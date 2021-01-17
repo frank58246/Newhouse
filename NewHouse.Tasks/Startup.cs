@@ -97,14 +97,14 @@ namespace NewHouse.Tasks
                              }
            );
 
-            //RecurringJob.AddOrUpdate<ICrawlerJob>(
-            // job =>  job.FetchNewHouseAsync(null,1),
-            //Cron.Daily);
+            RecurringJob.AddOrUpdate<ICrawlerJob>(
+             job => job.FetchNewHouseAsync(null, 116854),
+            Cron.Daily);
 
-            BackgroundJob.Schedule<ICrawlerJob>(
-                 job => job.FetchNewHouseAsync(null, 116854),
-            TimeSpan.FromSeconds(10)
-                );
+            //BackgroundJob.Schedule<ICrawlerJob>(
+            //     job => job.FetchNewHouseAsync(null, 116854),
+            //TimeSpan.FromSeconds(10)
+            //    );
         }
     }
 }
