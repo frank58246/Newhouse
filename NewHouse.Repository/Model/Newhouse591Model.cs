@@ -15,6 +15,11 @@ namespace NewHouse.Repository.Model
         public string BuildName { get; set; }
 
         /// <summary>
+        /// 建案介紹
+        /// </summary>
+        public string Info { get; set; }
+
+        /// <summary>
         /// 單價
         /// </summary>
         public string PinPrice { get; set; }

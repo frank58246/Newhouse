@@ -12,7 +12,9 @@ namespace NewHouse.Common.Constants
             {
                 public static string BuildName = ".build_label > h1";
 
-                // 基本資訊1
+                public static string Info = ".info_title:contains('特色說明') + div > p ";
+
+                // 基本資訊
                 private static Func<string, string> BasicInfo = key
                     => $" dt:contains('{key}') + dd";
 
@@ -22,10 +24,7 @@ namespace NewHouse.Common.Constants
                 public static string PublicSale = BasicInfo("公開銷售");
                 public static string HouseDeliveries = BasicInfo("交屋屋況");
                 public static string HousePlan = BasicInfo("格局規劃");
-
-                // 基本資訊2
                 public static string CaseType = BasicInfo("建案類別");
-
                 public static string Address = BasicInfo("基地地址");
                 public static string ReceptionAddress = BasicInfo("接待會館");
                 public static string InvestCompany = BasicInfo("投資建設");
