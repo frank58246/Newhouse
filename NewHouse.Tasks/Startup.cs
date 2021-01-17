@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using NewHouse.Common.Helper;
 using NewHouse.Tasks.Infracture.DependencyInjection;
 using NewHouse.Tasks.Infracture.Jobs;
 using System;
@@ -31,9 +32,6 @@ namespace NewHouse.Tasks
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            var total = AppDomain.CurrentDomain.GetAssemblies()
-                .Select(x => x.GetName().Name)
-                .ToList();
             var baseDirectory = AppDomain.CurrentDomain.BaseDirectory;
             var assemblies = new[]
             {
@@ -51,7 +49,9 @@ namespace NewHouse.Tasks
 
             services.AddControllersWithViews();
 
-            services.AddSingleton<HttpClient>(); 
+            services.AddSingleton<HttpClient>();
+
+            services.AddConfig(this.Configuration);
 
             services.AddHangfire();
         }
@@ -88,13 +88,13 @@ namespace NewHouse.Tasks
             app.UseHangfireDashboard("/hangfire",
                                      new DashboardOptions
                                      {
-                                 //預設授權無法在線上環境使用 Hangfire.Dashboard.LocalRequestsOnlyAuthorizationFilter
-                                 //Authorization = new[] { new DashboardAuthorizationFilter() }
+                                         //預設授權無法在線上環境使用 Hangfire.Dashboard.LocalRequestsOnlyAuthorizationFilter
+                                         //Authorization = new[] { new DashboardAuthorizationFilter() }
 
-                                 //AppPath = System.Web.VirtualPathUtility.ToAbsolute("~/"),
-                                 //DisplayStorageConnectionString = false,
-                                 //IsReadOnlyFunc = f => true
-                             }
+                                         //AppPath = System.Web.VirtualPathUtility.ToAbsolute("~/"),
+                                         //DisplayStorageConnectionString = false,
+                                         //IsReadOnlyFunc = f => true
+                                     }
            );
 
             RecurringJob.AddOrUpdate<ICrawlerJob>(

@@ -1,10 +1,12 @@
 ﻿using Hangfire;
 using Hangfire.Console;
 using Hangfire.Dashboard;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using NewHouse.Common.Helper;
 using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -40,9 +42,15 @@ namespace NewHouse.Tasks.Infracture.DependencyInjection
                    .UseDashboardMetric(DashboardMetrics.DeletedCount)
                    .UseDashboardMetric(DashboardMetrics.AwaitingCount)
                    .UseConsole()                                                                                                                //from Hangfire.Console
-                   .UseSqlServerStorage(connection)); 
-
+                   .UseSqlServerStorage(connection));
         }
 
+        public static void AddConfig(this IServiceCollection services,
+            IConfiguration configuration)
+        {
+            var config = new ConnectionSetting();
+            configuration.Bind("ConnectionSetting", config);
+            services.AddSingleton(config);
+        }
     }
 }
