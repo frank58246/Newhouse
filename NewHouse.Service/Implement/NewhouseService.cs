@@ -1,5 +1,7 @@
-﻿using NewHouse.Common.Model;
+﻿using AutoMapper;
+using NewHouse.Common.Model;
 using NewHouse.Repository.Interface;
+using NewHouse.Repository.Model;
 using NewHouse.Service.Dtos;
 using NewHouse.Service.Interface;
 using System;
@@ -13,31 +15,35 @@ namespace NewHouse.Service.Implement
     {
         private readonly INewhouse591Repository _newhouse591Repository;
 
-        public NewhouseService(INewhouse591Repository newhouse591Repository)
+        private readonly IMapper _mapper;
+
+        public NewhouseService(IMapper mapper,
+            INewhouse591Repository newhouse591Repository)
         {
+            this._mapper = mapper;
             this._newhouse591Repository = newhouse591Repository;
         }
 
-        public Task<bool> Exist(int hid)
+        public async Task<bool> ExistAsync(int hid)
         {
-            throw new NotImplementedException();
+            return await this._newhouse591Repository.ExistAsync(hid);
         }
 
-        public async Task<NewhouseDto> FetchNewhouseAsync(int hid)
+        public async Task<Newhouse591Dto> FetchNewhouseAsync(int hid)
         {
             var model = await this._newhouse591Repository.FetchAsync(hid);
-            return null;
+            return this._mapper.Map<Newhouse591Dto>(model);
         }
 
-        public Task<IResult> InsertAsync(NewhouseDto newhouse)
+        public async Task<IResult> InsertAsync(Newhouse591Dto newhouse)
+        {
+            var model = this._mapper.Map<Newhouse591Model>(newhouse);
+            return await this._newhouse591Repository.InsertAsync(model);
+        }
+
+        public Task<IResult> UpdateAsync(Newhouse591Dto newhouse)
         {
             throw new NotImplementedException();
         }
-
-        public Task<IResult> UpdateAsync(NewhouseDto newhouse)
-        {
-            throw new NotImplementedException();
-        }
-
     }
 }

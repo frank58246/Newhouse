@@ -10,6 +10,11 @@ namespace NewHouse.Repository.Model
     public class Newhouse591Model
     {
         /// <summary>
+        /// Hid
+        /// </summary>
+        public int Hid { get; set; }
+
+        /// <summary>
         /// 建案名稱
         /// </summary>
         public string BuildName { get; set; }
@@ -73,5 +78,10 @@ namespace NewHouse.Repository.Model
         /// 建設公司
         /// </summary>
         public string ConstructionCompany { get; set; }
+
+        /// <summary>
+        /// 更新時間
+        /// </summary>
+        public DateTime UpdateTime { get; set; }
     }
 }

@@ -23,19 +23,19 @@ namespace NewHouse.Tasks.Infracture.Jobs
 
         public async Task FetchNewHouseAsync(PerformContext context, int hid)
         {
-            context.WriteLine($"{DateTime.Now} 開始抓取hid:{hid}591新建案");
+            context.WriteLine($"{DateTime.Now} 開始抓取591新建案，hid:{hid}");
             var newhouse = await this._newhouseService.FetchNewhouseAsync(hid);
 
-            var exist = await this._newhouseService.Exist(hid);
+            var exist = await this._newhouseService.ExistAsync(hid);
             if (exist)
             {
-                var upateResult = await this._newhouseService.UpdateAsync(newhouse);
-                context.WriteLine($"{DateTime.Now} 新增hid:{hid}591新建案");
+                //var upateResult = await this._newhouseService.UpdateAsync(newhouse);
+                //context.WriteLine($"{DateTime.Now} 更新591新建案，hid:{hid}");
             }
             else
             {
-                var insertResult = await this._newhouseService.InsertAsync(newhouse);
-                context.WriteLine($"{DateTime.Now} 更新hid:{hid}591新建案");
+                var inserttResult = await this._newhouseService.InsertAsync(newhouse);
+                context.WriteLine($"{DateTime.Now} 新增hid:{hid}591新建案");
             }
 
             context.WriteLine($"{DateTime.Now} Job結束");

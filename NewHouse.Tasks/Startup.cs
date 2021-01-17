@@ -53,6 +53,8 @@ namespace NewHouse.Tasks
 
             services.AddConfig(this.Configuration);
 
+            services.AddMapping();
+
             services.AddHangfire();
         }
 

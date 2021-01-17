@@ -17,27 +17,27 @@ namespace NewHouse.Service.Interface
         /// </summary>
         /// <param name="hid"></param>
         /// <returns></returns>
-        Task<NewhouseDto> FetchNewhouseAsync(int hid);
+        Task<Newhouse591Dto> FetchNewhouseAsync(int hid);
 
         /// <summary>
         /// 指定新建案是否存在
         /// </summary>
         /// <param name="hid"></param>
         /// <returns></returns>
-        Task<bool> Exist(int hid);
+        Task<bool> ExistAsync(int hid);
 
         /// <summary>
         /// 新增新建案
         /// </summary>
         /// <param name="newhouse"></param>
         /// <returns></returns>
-        Task<IResult> InsertAsync(NewhouseDto newhouse);
+        Task<IResult> InsertAsync(Newhouse591Dto newhouse);
 
         /// <summary>
         /// 更新新建案
         /// </summary>
         /// <param name="newhouse"></param>
         /// <returns></returns>
-        Task<IResult> UpdateAsync(NewhouseDto newhouse);
+        Task<IResult> UpdateAsync(Newhouse591Dto newhouse);
     }
 }

@@ -1,4 +1,5 @@
-﻿using NewHouse.Repository.Model;
+﻿using NewHouse.Common.Model;
+using NewHouse.Repository.Model;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -9,5 +10,9 @@ namespace NewHouse.Repository.Interface
     public interface INewhouse591Repository
     {
         Task<Newhouse591Model> FetchAsync(int hid);
+
+        Task<IResult> InsertAsync(Newhouse591Model model);
+
+        Task<bool> ExistAsync(int hid);
     }
 }

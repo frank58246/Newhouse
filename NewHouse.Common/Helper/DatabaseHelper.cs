@@ -19,6 +19,8 @@ namespace NewHouse.Common.Helper
 
         public string Hangfire => this.GetConnectionString("Hangfire");
 
+        public string House => this.GetConnectionString("House");
+
         private string GetConnectionString(string key)
         {
             if (this._connectionSetting.Connections.ContainsKey(key))

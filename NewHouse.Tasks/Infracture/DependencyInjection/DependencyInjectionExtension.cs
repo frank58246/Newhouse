@@ -1,9 +1,11 @@
-﻿using Hangfire;
+﻿using AutoMapper;
+using Hangfire;
 using Hangfire.Console;
 using Hangfire.Dashboard;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using NewHouse.Common.Helper;
+using NewHouse.Service.Mapping;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
@@ -51,6 +53,17 @@ namespace NewHouse.Tasks.Infracture.DependencyInjection
             var config = new ConnectionSetting();
             configuration.Bind("ConnectionSetting", config);
             services.AddSingleton(config);
+        }
+
+        public static void AddMapping(this IServiceCollection services)
+        {
+            var mapperConfig = new MapperConfiguration(mc =>
+            {
+                mc.AddProfile(new ServiceProfile());
+            });
+
+            IMapper mapper = mapperConfig.CreateMapper();
+            services.AddSingleton(mapper);
         }
     }
 }

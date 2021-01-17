@@ -5,8 +5,11 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="AutoMapper" Version="10.1.1" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\NewHouse.Common\NewHouse.Common.csproj" />
     <ProjectReference Include="..\NewHouse.Repository\NewHouse.Repository.csproj" />
   </ItemGroup>
-
 </Project>
