@@ -8,9 +8,13 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using NewHouse.Tasks.Infracture.DependencyInjection;
+using NewHouse.Tasks.Infracture.Jobs;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using System.Net.Http;
+using System.Reflection;
 using System.Threading.Tasks;
 
 namespace NewHouse.Tasks
@@ -27,14 +31,29 @@ namespace NewHouse.Tasks
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            var total = AppDomain.CurrentDomain.GetAssemblies()
+                .Select(x => x.GetName().Name)
+                .ToList();
+            var baseDirectory = AppDomain.CurrentDomain.BaseDirectory;
+            var assemblies = new[]
+            {
+                 Assembly.LoadFrom($"{baseDirectory}NewHouse.Service.dll"),
+                 Assembly.LoadFrom($"{baseDirectory}NewHouse.Common.dll"),
+                 //Assembly.LoadFrom($"{baseDirectory}NewHouse.Repository.dll"),
+                 Assembly.LoadFrom($"{baseDirectory}NewHouse.Tasks.dll")
+            };
+
             services.Scan(scan =>
-                scan.FromCallingAssembly()
+                scan.FromAssemblies(assemblies)
                     .AddClasses()
-                    .AsMatchingInterface());
+                    .AsMatchingInterface()
+                    );
 
             services.AddControllersWithViews();
 
-            //services.AddHangfire();
+            services.AddSingleton<HttpClient>(); 
+
+            services.AddHangfire();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -64,7 +83,6 @@ namespace NewHouse.Tasks
                     pattern: "{controller=Home}/{action=Index}/{id?}");
             });
 
-            return;
             // Hangfire
             app.UseHangfireServer();
             app.UseHangfireDashboard("/hangfire",
@@ -78,6 +96,10 @@ namespace NewHouse.Tasks
                                  //IsReadOnlyFunc = f => true
                              }
            );
+
+            RecurringJob.AddOrUpdate<ICrawlerJob>(
+             job =>  job.FetchNewHouseAsync(null,1),
+            Cron.Daily);
         }
     }
 }

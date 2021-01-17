@@ -17,6 +17,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\NewHouse.Common\NewHouse.Common.csproj" />
+    <ProjectReference Include="..\NewHouse.Service\NewHouse.Service.csproj" />
   </ItemGroup>
 
 </Project>

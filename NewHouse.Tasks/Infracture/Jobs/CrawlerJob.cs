@@ -37,6 +37,7 @@ namespace NewHouse.Tasks.Infracture.Jobs
                 var insertResult = await this._newhouseService.InsertAsync(newhouse);
                 context.WriteLine($"{DateTime.Now} 更新hid:{hid}591新建案");
             }
+
             context.WriteLine($"{DateTime.Now} Job結束");
         }
     }
