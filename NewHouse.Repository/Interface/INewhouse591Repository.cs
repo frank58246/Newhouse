@@ -9,7 +9,7 @@ namespace NewHouse.Repository.Interface
 {
     public interface INewhouse591Repository
     {
-        Task<Newhouse591Model> FetchAsync(int hid);
+        Task<string> FetchDetailHtmlAsync(int hid);
 
         Task<IResult> InsertAsync(Newhouse591Model model);
 

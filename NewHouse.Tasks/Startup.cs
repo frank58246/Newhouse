@@ -99,20 +99,11 @@ namespace NewHouse.Tasks
                                      }
            );
 
-            //RecurringJob.AddOrUpdate<ICrawlerJob>(
-            // job => job.FetchNewHouseAsync(null, 127689),
-            //Cron.Daily);
-
             for (int i = 120000; i < 121000; i++)
             {
-                BackgroundJob.Enqueue<ICrawlerJob>(job =>
-                    job.FetchNewHouseAsync(null, i));
+                //BackgroundJob.Enqueue<ICrawlerJob>(job =>
+                //    job.FetchNewHouseAsync(null, i));
             }
-
-            //BackgroundJob.Schedule<ICrawlerJob>(
-            //     job => job.FetchNewHouseAsync(null, 116854),
-            //TimeSpan.FromSeconds(10)
-            //    );
         }
     }
 }

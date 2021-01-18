@@ -1,5 +1,7 @@
 ﻿using AutoMapper;
+using NewHouse.Common.Extension;
 using NewHouse.Common.Model;
+using NewHouse.Repository.Converters;
 using NewHouse.Repository.Interface;
 using NewHouse.Repository.Model;
 using NewHouse.Service.Dtos;
@@ -15,13 +17,17 @@ namespace NewHouse.Service.Implement
     {
         private readonly INewhouse591Repository _newhouse591Repository;
 
+        private readonly INewhouseConverter _newhouseConverter;
+
         private readonly IMapper _mapper;
 
         public NewhouseService(IMapper mapper,
-            INewhouse591Repository newhouse591Repository)
+            INewhouse591Repository newhouse591Repository,
+            INewhouseConverter newhouseConverter)
         {
             this._mapper = mapper;
             this._newhouse591Repository = newhouse591Repository;
+            this._newhouseConverter = newhouseConverter;
         }
 
         public async Task<bool> ExistAsync(int hid)
@@ -31,12 +37,15 @@ namespace NewHouse.Service.Implement
 
         public async Task<Newhouse591Dto> FetchNewhouseAsync(int hid)
         {
-            var model = await this._newhouse591Repository.FetchAsync(hid);
+            var html = await this._newhouse591Repository.FetchDetailHtmlAsync(hid);
 
-            if (model.BuildName is null || model.BuildName == "")
+            var model = await this._newhouseConverter.ConvertTo591ModelAsync(html, hid);
+
+            if (model is null || model.BuildName.IsNullOrEmpty())
             {
                 return null;
             }
+
             return this._mapper.Map<Newhouse591Dto>(model);
         }
 

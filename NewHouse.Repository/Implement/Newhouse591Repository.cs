@@ -30,6 +30,17 @@ namespace NewHouse.Repository.Implement
             this._connectionHelper = connectionHelper;
         }
 
+        public async Task<string> FetchDetailHtmlAsync(int hid)
+        {
+            var baseUrl = this._websiteUrlHelper.NewHouse591;
+            var url = baseUrl.AppendPathSegment("/home/housing/info")
+                             .SetQueryParam("hid", hid);
+
+            var response = await this._httpClient.GetAsync(url);
+
+            return await response.ContentStringAsync();
+        }
+
         public async Task<bool> ExistAsync(int hid)
         {
             var sql = @"
@@ -45,47 +56,6 @@ namespace NewHouse.Repository.Implement
 
                 return result != null && result.Count() > 0;
             }
-        }
-
-        public async Task<Newhouse591Model> FetchAsync(int hid)
-        {
-            var baseUrl = this._websiteUrlHelper.NewHouse591;
-            var url = baseUrl.AppendPathSegment("/home/housing/info")
-                             .SetQueryParam("hid", hid);
-
-            var config = Configuration.Default;
-            var context = BrowsingContext.New(config);
-
-            var response = await this._httpClient.GetAsync(url);
-            var responseString = await response.ContentStringAsync();
-
-            responseString = responseString.Replace("&nbsp;", "")
-                                           .Replace("<br />", "\n");
-
-            var document = await context.OpenAsync(res => res.Content(responseString));
-
-            var model = new Newhouse591Model
-            {
-                Hid = hid,
-                BuildName = this.GetSingleValue(document, Selector.BuildName),
-                Info = this.GetSingleValue(document, Selector.Info, needTrim: false),
-                PinPrice = this.GetSingleValue(document, Selector.PinPrice),
-                Price = this.GetSingleValue(document, Selector.Price),
-                ParkingPrice = this.GetSingleValue(document, Selector.ParkingPrice),
-                PublicSale = this.GetSingleValue(document, Selector.PublicSale),
-                HouseDeliveries = this.GetSingleValue(document, Selector.HouseDeliveries),
-                HousePlan = this.GetSingleValue(document, Selector.HousePlan),
-
-                CaseType = this.GetSingleValue(document, Selector.CaseType),
-                Address = this.GetSingleValue(document, Selector.Address),
-                ReceptionAddress = this.GetSingleValue(document, Selector.ReceptionAddress),
-                InvestCompany = this.GetSingleValue(document, Selector.InvestCompany),
-                ConstructionCompany = this.GetSingleValue(document, Selector.ConstructionCompany),
-
-                UpdateTime = DateTime.Now
-            };
-
-            return model;
         }
 
         public async Task<IResult> InsertAsync(Newhouse591Model model)
@@ -124,18 +94,6 @@ namespace NewHouse.Repository.Implement
                     Success = true
                 };
             }
-        }
-
-        private string GetSingleValue(IDocument document, string selector, bool needTrim = true)
-        {
-            var values = document.QuerySelectorAll(selector);
-            if (values is null || values.Count() == 0)
-            {
-                return "";
-            }
-
-            return needTrim ? values.FirstOrDefault().TextContent.Trim()
-                            : values.FirstOrDefault().TextContent;
         }
     }
 }
