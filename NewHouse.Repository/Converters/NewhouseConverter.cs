@@ -57,6 +57,23 @@ namespace NewHouse.Repository.Converters
             return model;
         }
 
+        public async Task<NewhouseModel> ConvertToModelAsync(Newhouse591Model newhouse591Model)
+        {
+            if (newhouse591Model is null)
+            {
+                throw new ArgumentNullException();
+            }
+
+            var newhouseModel = new NewhouseModel
+            {
+                BuildName = newhouse591Model.BuildName,
+                HighPinPrice = 0,
+                HighPrice = 1,
+            };
+
+            return newhouseModel;
+        }
+
         private string GetSingleSelectorValue(IDocument document, string selector, bool needTrim = true)
         {
             var values = document.QuerySelectorAll(selector);

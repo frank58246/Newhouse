@@ -1,0 +1,47 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Text;
+
+namespace NewHouse.Repository.Model
+{
+    /// <summary>
+    /// 新建案的Model
+    /// </summary>
+    public class NewhouseModel
+    {
+        /// <summary>
+        /// Sid
+        /// </summary>
+        public int Sid { get; set; }
+
+        /// <summary>
+        /// 建案名稱
+        /// </summary>
+        public string BuildName { get; set; }
+
+        /// <summary>
+        /// 建案介紹
+        /// </summary>
+        public string Info { get; set; }
+
+        /// <summary>
+        /// 最高單價
+        /// </summary>
+        public double? HighPinPrice { get; set; }
+
+        /// <summary>
+        /// 最低單價
+        /// </summary>
+        public double? LowPinPrice { get; set; }
+
+        /// <summary>
+        /// 最高總價
+        /// </summary>
+        public double? HighPrice { get; set; }
+
+        /// <summary>
+        /// 最低總價
+        /// </summary>
+        public double? LowPrice { get; set; }
+    }
+}
