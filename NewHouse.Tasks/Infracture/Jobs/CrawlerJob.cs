@@ -14,9 +14,9 @@ namespace NewHouse.Tasks.Infracture.Jobs
     /// </summary>
     public class CrawlerJob : ICrawlerJob
     {
-        private readonly INewhouseService _newhouseService;
+        private readonly INewhouse591Service _newhouseService;
 
-        public CrawlerJob(INewhouseService newhouseService)
+        public CrawlerJob(INewhouse591Service newhouseService)
         {
             this._newhouseService = newhouseService;
         }

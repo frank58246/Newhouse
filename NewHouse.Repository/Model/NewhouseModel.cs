@@ -15,6 +15,11 @@ namespace NewHouse.Repository.Model
         public int Sid { get; set; }
 
         /// <summary>
+        /// Hid，對應Newhouse591.HID
+        /// </summary>
+        public int? Hid { get; set; }
+
+        /// <summary>
         /// 建案名稱
         /// </summary>
         public string BuildName { get; set; }
@@ -43,5 +48,20 @@ namespace NewHouse.Repository.Model
         /// 最低總價
         /// </summary>
         public double? LowPrice { get; set; }
+
+        /// <summary>
+        /// 縣市
+        /// </summary>
+        public string County { get; set; }
+
+        /// <summary>
+        /// 行政區
+        /// </summary>
+        public string District { get; set; }
+
+        /// <summary>
+        /// 更新時間
+        /// </summary>
+        public DateTime UpdateTime { get; set; }
     }
 }

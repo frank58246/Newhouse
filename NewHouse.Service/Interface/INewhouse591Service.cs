@@ -10,8 +10,8 @@ namespace NewHouse.Service.Interface
     /// <summary>
     /// 新建案服務
     /// </summary>
-   public  interface INewhouseService
-   {
+    public interface INewhouse591Service
+    {
         /// <summary>
         /// 抓取指定hid的新建案
         /// </summary>

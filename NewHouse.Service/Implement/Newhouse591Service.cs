@@ -13,7 +13,7 @@ using System.Threading.Tasks;
 
 namespace NewHouse.Service.Implement
 {
-    public class NewhouseService : INewhouseService
+    public class Newhouse591Service : INewhouse591Service
     {
         private readonly INewhouse591Repository _newhouse591Repository;
 
@@ -21,7 +21,7 @@ namespace NewHouse.Service.Implement
 
         private readonly IMapper _mapper;
 
-        public NewhouseService(IMapper mapper,
+        public Newhouse591Service(IMapper mapper,
             INewhouse591Repository newhouse591Repository,
             INewhouseConverter newhouseConverter)
         {
