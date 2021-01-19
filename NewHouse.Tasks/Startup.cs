@@ -55,6 +55,8 @@ namespace NewHouse.Tasks
 
             services.AddMapping();
 
+            services.AddMemoryCache();
+
             services.AddHangfire();
         }
 
