@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Newhouse.DependencyInjection;
 using NewHouse.Common.Helper;
 using NewHouse.Tasks.Infracture.DependencyInjection;
 using NewHouse.Tasks.Infracture.Jobs;
@@ -47,17 +48,11 @@ namespace NewHouse.Tasks
                     .AsMatchingInterface()
                     );
 
+            services.AddCommonDependencyInjection(Configuration);
+
             services.AddControllersWithViews();
 
-            services.AddSingleton<HttpClient>();
-
-            services.AddConfig(this.Configuration);
-
             services.AddMapping();
-
-            services.AddCache();
-
-            services.AddHangfire();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

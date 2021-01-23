@@ -4,6 +4,10 @@ using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Newhouse.DependencyInjection;
+using NewHouse.Repository.Implement;
+using NewHouse.Repository.Implement.Decorator;
+using NewHouse.Repository.Interface;
 using NewHouse.WebApi.Infracture;
 using System;
 using System.Collections.Generic;
@@ -41,15 +45,11 @@ namespace NewHouse.WebApi
                     .AsMatchingInterface()
                     );
 
+            services.AddCommonDependencyInjection(Configuration);
+
             services.AddControllersWithViews();
 
-            services.AddSingleton<HttpClient>();
-
-            services.AddConfig(this.Configuration);
-
             services.AddMapping();
-
-            services.AddCache();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

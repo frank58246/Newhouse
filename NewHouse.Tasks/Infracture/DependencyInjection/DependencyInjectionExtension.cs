@@ -2,8 +2,11 @@
 using Hangfire;
 using Hangfire.Console;
 using Hangfire.Dashboard;
+using Microsoft.Extensions.Caching.Distributed;
+using Microsoft.Extensions.Caching.Memory;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using NewHouse.Common.Caching;
 using NewHouse.Common.Helper;
 using NewHouse.Service.Mapping;
 using System;
@@ -47,14 +50,6 @@ namespace NewHouse.Tasks.Infracture.DependencyInjection
                    .UseSqlServerStorage(connection));
         }
 
-        public static void AddConfig(this IServiceCollection services,
-            IConfiguration configuration)
-        {
-            var config = new ConnectionSetting();
-            configuration.Bind("ConnectionSetting", config);
-            services.AddSingleton(config);
-        }
-
         public static void AddMapping(this IServiceCollection services)
         {
             var mapperConfig = new MapperConfiguration(mc =>
@@ -64,20 +59,6 @@ namespace NewHouse.Tasks.Infracture.DependencyInjection
 
             IMapper mapper = mapperConfig.CreateMapper();
             services.AddSingleton(mapper);
-        }
-
-        public static void AddCache(this IServiceCollection services)
-        {
-            services.AddMemoryCache();
-
-            var databaseHelper = services.BuildServiceProvider()
-                                         .GetService<IDatabaseHelper>();
-
-            services.AddStackExchangeRedisCache(options =>
-            {
-                options.Configuration = databaseHelper.Redis;
-                options.InstanceName = "NewHouse";
-            });
         }
     }
 }
