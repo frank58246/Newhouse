@@ -65,5 +65,19 @@ namespace NewHouse.Tasks.Infracture.DependencyInjection
             IMapper mapper = mapperConfig.CreateMapper();
             services.AddSingleton(mapper);
         }
+
+        public static void AddCache(this IServiceCollection services)
+        {
+            services.AddMemoryCache();
+
+            var databaseHelper = services.BuildServiceProvider()
+                                         .GetService<IDatabaseHelper>();
+
+            services.AddStackExchangeRedisCache(options =>
+            {
+                options.Configuration = databaseHelper.Redis;
+                options.InstanceName = "NewHouse";
+            });
+        }
     }
 }

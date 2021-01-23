@@ -1,4 +1,5 @@
-﻿using Microsoft.Extensions.Caching.Memory;
+﻿using MessagePack;
+using Microsoft.Extensions.Caching.Distributed;
 using System;
 using System.Collections.Generic;
 using System.Runtime.Caching;
@@ -6,14 +7,14 @@ using System.Text;
 
 namespace NewHouse.Common.Caching
 {
-    public class MemoryCacheManager : ICacheManager
+    public class DistributeCacheManger : ICacheManager
     {
         //加入Lock機制限定同一Key同一時間只有一個Callback執行
         private const string _asyncLockPrefix = "$$MemoryCacheAsyncLock#";
 
-        private readonly IMemoryCache _cache;
+        private IDistributedCache _cache;
 
-        public MemoryCacheManager(IMemoryCache cache)
+        public DistributeCacheManger(IDistributedCache cache)
         {
             this._cache = cache;
         }
@@ -22,9 +23,10 @@ namespace NewHouse.Common.Caching
         {
             lock (GetAsyncLock(key))
             {
-                if (this._cache.Get<T>(key) != null)
+                var bytes = this._cache.Get(key);
+                if (bytes != null)
                 {
-                    return this._cache.Get<T>(key);
+                    return MessagePackSerializer.Deserialize<T>(bytes);
                 }
 
                 return default(T);
@@ -33,9 +35,9 @@ namespace NewHouse.Common.Caching
 
         public bool Save<T>(string key, T value)
         {
-            this._cache.Set<T>(key, value);
-
-            return this.Get<T>(key) != null;
+            var bytes = MessagePackSerializer.Serialize(value);
+            this._cache.Set(key, bytes);
+            return this._cache.Get(key) != null;
         }
 
         /// <summary>

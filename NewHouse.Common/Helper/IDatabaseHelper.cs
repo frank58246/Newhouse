@@ -12,5 +12,7 @@ namespace NewHouse.Common.Helper
         string Hangfire { get; }
 
         string House { get; }
+
+        string Redis { get; }
     }
 }

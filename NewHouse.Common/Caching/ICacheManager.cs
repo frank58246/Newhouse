@@ -4,7 +4,7 @@ using System.Text;
 
 namespace NewHouse.Common.Caching
 {
-    public interface IMemoryCacheManager
+    public interface ICacheManager
     {
         T Get<T>(string key);
 
