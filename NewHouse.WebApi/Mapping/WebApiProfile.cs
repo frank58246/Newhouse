@@ -12,7 +12,7 @@ namespace NewHouse.WebApi.Mapping
     {
         public WebApiProfile()
         {
-            this.CreateMap<NewhouseViewModel, NewhouseDto>();
+            this.CreateMap<NewhouseDto, NewhouseViewModel>();
         }
     }
 }
