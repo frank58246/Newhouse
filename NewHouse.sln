@@ -3,13 +3,19 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.30804.86
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NewHouse.Repository", "NewHouse.Repository\NewHouse.Repository.csproj", "{5F4187B1-B213-4110-9B7D-66DE7400BED5}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NewHouse.Repository", "NewHouse.Repository\NewHouse.Repository.csproj", "{5F4187B1-B213-4110-9B7D-66DE7400BED5}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NewHouse.Service", "NewHouse.Service\NewHouse.Service.csproj", "{B73260D4-8D0C-4F6B-9D51-C1332AD5896F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NewHouse.Service", "NewHouse.Service\NewHouse.Service.csproj", "{B73260D4-8D0C-4F6B-9D51-C1332AD5896F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NewHouse.Common", "NewHouse.Common\NewHouse.Common.csproj", "{76AB7670-A005-49FD-8C24-DF947ACD8806}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NewHouse.Common", "NewHouse.Common\NewHouse.Common.csproj", "{76AB7670-A005-49FD-8C24-DF947ACD8806}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NewHouse.Tasks", "NewHouse.Tasks\NewHouse.Tasks.csproj", "{A3192F68-EC06-4E4E-A33F-1E7AA8B21BCF}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NewHouse.Tasks", "NewHouse.Tasks\NewHouse.Tasks.csproj", "{A3192F68-EC06-4E4E-A33F-1E7AA8B21BCF}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NewHouse.WebApi", "NewHouse.WebApi\NewHouse.WebApi.csproj", "{D47D82D6-B07C-4F3B-B4DD-1ED176C17752}"
+	ProjectSection(ProjectDependencies) = postProject
+		{76AB7670-A005-49FD-8C24-DF947ACD8806} = {76AB7670-A005-49FD-8C24-DF947ACD8806}
+		{B73260D4-8D0C-4F6B-9D51-C1332AD5896F} = {B73260D4-8D0C-4F6B-9D51-C1332AD5896F}
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,6 +39,10 @@ Global
 		{A3192F68-EC06-4E4E-A33F-1E7AA8B21BCF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A3192F68-EC06-4E4E-A33F-1E7AA8B21BCF}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A3192F68-EC06-4E4E-A33F-1E7AA8B21BCF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D47D82D6-B07C-4F3B-B4DD-1ED176C17752}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D47D82D6-B07C-4F3B-B4DD-1ED176C17752}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D47D82D6-B07C-4F3B-B4DD-1ED176C17752}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D47D82D6-B07C-4F3B-B4DD-1ED176C17752}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
