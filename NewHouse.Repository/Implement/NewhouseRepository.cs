@@ -29,7 +29,7 @@ namespace NewHouse.Repository.Implement
             var parameter = new { SID = sid };
             using (var conn = this._connectionHelper.House)
             {
-                return await conn.QueryFirstAsync<NewhouseModel>(sql, parameter);
+                return await conn.QueryFirstOrDefaultAsync<NewhouseModel>(sql, parameter);
             }
         }
 

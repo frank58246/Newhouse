@@ -3,6 +3,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using NewHouse.Common.Helper;
 using NewHouse.Service.Mapping;
+using NewHouse.WebApi.Mapping;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -25,6 +26,7 @@ namespace NewHouse.WebApi.Infracture
             var mapperConfig = new MapperConfiguration(mc =>
             {
                 mc.AddProfile(new ServiceProfile());
+                mc.AddProfile(new WebApiProfile());
             });
 
             IMapper mapper = mapperConfig.CreateMapper();

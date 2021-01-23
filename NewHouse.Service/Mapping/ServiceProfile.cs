@@ -14,6 +14,9 @@ namespace NewHouse.Service.Mapping
         {
             this.CreateMap<Newhouse591Dto, Newhouse591Model>()
                 .ReverseMap();
+
+            this.CreateMap<NewhouseModel, NewhouseDto>()
+                .ReverseMap();
         }
     }
 }
