@@ -66,9 +66,12 @@ namespace NewHouse.Repository.Converters
 
             var newhouseModel = new NewhouseModel
             {
+                Hid = newhouse591Model.Hid,
                 BuildName = newhouse591Model.BuildName,
-                HighPinPrice = 0,
-                HighPrice = 1,
+                HighPinPrice = newhouse591Model.PinPrice.ToDoubleList().MaxOrDefault(),
+                LowPinPrice = newhouse591Model.PinPrice.ToDoubleList().MinOrDefault(),
+                HighPrice = newhouse591Model.Price.ToIntList().MaxOrDefault(),
+                LowPrice = newhouse591Model.PinPrice.ToIntList().MinOrDefault()
             };
 
             return newhouseModel;

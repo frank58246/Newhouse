@@ -51,13 +51,13 @@ namespace NewHouse.Repository.Model
         /// 最高總價
         /// </summary>
         [Key(6)]
-        public double? HighPrice { get; set; }
+        public int? HighPrice { get; set; }
 
         /// <summary>
         /// 最低總價
         /// </summary>
         [Key(7)]
-        public double? LowPrice { get; set; }
+        public int? LowPrice { get; set; }
 
         /// <summary>
         /// 縣市

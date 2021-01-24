@@ -34,5 +34,25 @@ namespace NewHouse.Common.Extension
 
             return intList;
         }
+
+        public static List<double> ToDoubleList(this string s)
+        {
+            var doubleList = new List<double>();
+            if (s.IsNullOrEmpty())
+            {
+                return doubleList;
+            }
+
+            var matches = Regex.Split(s, @"([0-9]*[.]?[0-9]*)");
+            foreach (var match in matches)
+            {
+                if (double.TryParse(match, out var number))
+                {
+                    doubleList.Add(number);
+                }
+            }
+
+            return doubleList;
+        }
     }
 }

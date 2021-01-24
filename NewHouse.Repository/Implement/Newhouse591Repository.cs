@@ -68,6 +68,7 @@ namespace NewHouse.Repository.Implement
                                        ,[UpdateTime]
                                        ,[Info]
                                        ,[Price]
+                                       ,[PinPrice]
                                        ,[ParkingPrice]
                                        ,[PublicSale]
                                        ,[HouseDeliveries]
@@ -79,6 +80,7 @@ namespace NewHouse.Repository.Implement
                                        ,@UpdateTime
                                        ,@Info
                                        ,@Price
+                                       ,@PinPrice
                                        ,@ParkingPrice
                                        ,@PublicSale
                                        ,@HouseDeliveries
