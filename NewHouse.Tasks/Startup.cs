@@ -52,6 +52,8 @@ namespace NewHouse.Tasks
 
             services.AddControllersWithViews();
 
+            services.AddHangfire();
+
             services.AddMapping();
         }
 
@@ -98,8 +100,8 @@ namespace NewHouse.Tasks
 
             for (int i = 120000; i < 121000; i++)
             {
-                //BackgroundJob.Enqueue<ICrawlerJob>(job =>
-                //    job.FetchNewHouseAsync(null, i));
+                BackgroundJob.Enqueue<ICrawlerJob>(job =>
+                    job.FetchNewHouseAsync(null, i));
             }
         }
     }
