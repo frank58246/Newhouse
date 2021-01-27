@@ -11,5 +11,7 @@ namespace NewHouse.Common.Helper
     public interface IConnectionHelper
     {
         IDbConnection House { get; }
+
+        IDbConnection Common { get; }
     }
 }

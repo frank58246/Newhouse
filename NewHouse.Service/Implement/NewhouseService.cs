@@ -1,5 +1,7 @@
 ﻿using AutoMapper;
+using NewHouse.Common.Model;
 using NewHouse.Repository.Interface;
+using NewHouse.Repository.Model;
 using NewHouse.Service.Dtos;
 using NewHouse.Service.Interface;
 using System;
@@ -22,15 +24,22 @@ namespace NewHouse.Service.Implement
             this._newhouseRepository = newhouseRepository;
         }
 
-        public async Task<NewhouseDto> GetAsync(int sid)
+        public async Task<NewhouseDto> GetAsync(int hid)
         {
-            if (sid == 0)
+            if (hid == 0)
             {
-                throw new ArgumentNullException(nameof(sid));
+                throw new ArgumentNullException(nameof(hid));
             }
-            var newhouseModel = await this._newhouseRepository.GetAsync(sid);
+            var newhouseModel = await this._newhouseRepository.GetAsync(hid);
 
             return this._mapper.Map<NewhouseDto>(newhouseModel);
+        }
+
+        public async Task<IResult> InsertAsync(NewhouseDto newhouseDto)
+        {
+            var newhouseModel = this._mapper.Map<NewhouseModel>(newhouseDto);
+
+            return await this._newhouseRepository.InsertAsync(newhouseModel);
         }
     }
 }

@@ -13,6 +13,8 @@ namespace NewHouse.Common.Helper
 
         string House { get; }
 
+        string Common { get; }
+
         string Redis { get; }
     }
 }

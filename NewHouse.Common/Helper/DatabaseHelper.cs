@@ -21,6 +21,8 @@ namespace NewHouse.Common.Helper
 
         public string House => this.GetConnectionString("House");
 
+        public string Common => this.GetConnectionString("Common");
+
         public string Redis => this.GetConnectionString("Redis");
 
         private string GetConnectionString(string key)

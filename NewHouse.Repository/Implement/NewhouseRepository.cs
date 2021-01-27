@@ -19,14 +19,14 @@ namespace NewHouse.Repository.Implement
             this._connectionHelper = connectionHelper;
         }
 
-        public async Task<NewhouseModel> GetAsync(int sid)
+        public async Task<NewhouseModel> GetAsync(int hid)
         {
             var sql = @"
                 SELECT *
                 FROM Newhouse WITH(NOLOCK)
-                WHERE SID = @SID ";
+                WHERE HID = @HID";
 
-            var parameter = new { SID = sid };
+            var parameter = new { HID = hid };
             using (var conn = this._connectionHelper.House)
             {
                 return await conn.QueryFirstOrDefaultAsync<NewhouseModel>(sql, parameter);
