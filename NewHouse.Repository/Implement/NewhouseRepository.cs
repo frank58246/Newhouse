@@ -46,7 +46,6 @@ namespace NewHouse.Repository.Implement
                        ,[LowPrice]
                        ,[County]
                        ,[District]
-                       ,[CreateTime]
                        ,[UpdateTime])
                  VALUES
                        (@HID
@@ -58,7 +57,6 @@ namespace NewHouse.Repository.Implement
                        ,@LowPrice
                        ,@County
                        ,@District
-                       ,@CreateTime
                        ,@UpdateTime)";
 
             using (var conn = this._connectionHelper.House)

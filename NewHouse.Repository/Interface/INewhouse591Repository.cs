@@ -14,5 +14,7 @@ namespace NewHouse.Repository.Interface
         Task<IResult> InsertAsync(Newhouse591Model model);
 
         Task<bool> ExistAsync(int hid);
+
+        Task<IEnumerable<Newhouse591Model>> GetAllAsync();
     }
 }

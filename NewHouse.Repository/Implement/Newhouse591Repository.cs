@@ -97,5 +97,33 @@ namespace NewHouse.Repository.Implement
                 };
             }
         }
+
+        public async Task<IEnumerable<Newhouse591Model>> GetAllAsync()
+        {
+            var sql = @"
+                      SELECT  [SID]
+                              ,[HID]
+                              ,[BuildName]
+                              ,[Address]
+                              ,[CreateTime]
+                              ,[UpdateTime]
+                              ,[Info]
+                              ,[Price]
+                              ,[ParkingPrice]
+                              ,[PublicSale]
+                              ,[HouseDeliveries]
+                              ,[HousePlan]
+                              ,[PinPrice]
+                              ,[CaseType]
+                              ,[ReceptionAddress]
+                              ,[InvestCompany]
+                              ,[ConstructionCompany]
+                      FROM Newhouse591";
+
+            using (var conn = this._connectionHelper.House)
+            {
+                return await conn.QueryAsync<Newhouse591Model>(sql);
+            }
+        }
     }
 }

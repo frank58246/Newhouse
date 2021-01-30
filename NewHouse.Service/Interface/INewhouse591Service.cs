@@ -26,6 +26,8 @@ namespace NewHouse.Service.Interface
         /// <returns></returns>
         Task<bool> ExistAsync(int hid);
 
+        Task<IEnumerable<Newhouse591Dto>> GetAllAsync();
+
         /// <summary>
         /// 新增新建案
         /// </summary>

@@ -19,6 +19,6 @@ namespace NewHouse.Common.Helper
             new SqlConnection(this._databaseHelper.House);
 
         public IDbConnection Common =>
-             new SqlConnection(this._databaseHelper.House);
+             new SqlConnection(this._databaseHelper.Common);
     }
 }

@@ -21,12 +21,12 @@ namespace NewHouse.Repository.Implement
         public async Task<IEnumerable<DistrictModel>> GetAllAsync()
         {
             var sql = @"
-                SELECT [DistirctName],
+                SELECT [DistrictName],
                        [CountyName],
                        [CountySID]
                 FROM [District] WITH(NOLOCK)";
 
-            using (var conn = this._connectionHelper.House)
+            using (var conn = this._connectionHelper.Common)
             {
                 return await conn.QueryAsync<DistrictModel>(sql);
             }

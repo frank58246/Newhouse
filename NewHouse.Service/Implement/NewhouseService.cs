@@ -39,6 +39,8 @@ namespace NewHouse.Service.Implement
         {
             var newhouseModel = this._mapper.Map<NewhouseModel>(newhouseDto);
 
+            newhouseModel.UpdateTime = DateTime.Now;
+
             return await this._newhouseRepository.InsertAsync(newhouseModel);
         }
     }

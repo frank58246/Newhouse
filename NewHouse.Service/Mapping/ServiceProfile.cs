@@ -17,6 +17,8 @@ namespace NewHouse.Service.Mapping
 
             this.CreateMap<NewhouseModel, NewhouseDto>()
                 .ReverseMap();
+
+            this.CreateMap<DistrictModel, DistrictDto>();
         }
     }
 }
