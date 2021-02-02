@@ -71,5 +71,33 @@ namespace NewHouse.Repository.Implement
                 };
             }
         }
+
+        public async Task<IResult> UpdateAsync(NewhouseModel newhouseModel)
+        {
+            var sql = @"
+                        UPDATE [dbo].[Newhouse]
+                           SET [BuildName] = @BuildName
+                              ,[Info] = @Info
+                              ,[HighPinPrice] = @HighPinPrice
+                              ,[LowPinPrice] = @LowPinPrice
+                              ,[HighPrice] = @HighPrice
+                              ,[LowPrice] = @LowPrice
+                              ,[County] = @County
+                              ,[District] = @District
+                              ,[UpdateTime] = @UpdateTime
+                         WHERE HID = @HID
+                        ";
+            using (var conn = this._connectionHelper.House)
+            {
+                var result = await conn.ExecuteAsync(sql, newhouseModel);
+
+                return new Result()
+                {
+                    AffectRow = result,
+                    Message = "",
+                    Success = true
+                };
+            }
+        }
     }
 }

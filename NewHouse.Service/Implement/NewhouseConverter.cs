@@ -80,7 +80,7 @@ namespace NewHouse.Service.Implement
                 LowPinPrice = newhouse591Dto.PinPrice.ToDoubleList().MinOrDefault(),
                 HighPrice = newhouse591Dto.Price.ToIntList().MaxOrDefault(),
                 LowPrice = newhouse591Dto.PinPrice.ToIntList().MinOrDefault(),
-
+                Info = newhouse591Dto.Info,
                 County = await this._countyDistrictService.GetCountyName(newhouse591Dto.Address),
                 District = await this._countyDistrictService.GetDistrictName(newhouse591Dto.Address)
             };

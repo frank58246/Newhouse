@@ -44,5 +44,10 @@ namespace NewHouse.Repository.Implement.Decorator
         {
             return await this._newhouseRepository.InsertAsync(newhouseModel);
         }
+
+        public async Task<IResult> UpdateAsync(NewhouseModel newhouseModel)
+        {
+            return await this._newhouseRepository.UpdateAsync(newhouseModel);
+        }
     }
 }

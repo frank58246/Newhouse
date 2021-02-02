@@ -43,5 +43,14 @@ namespace NewHouse.Service.Implement
 
             return await this._newhouseRepository.InsertAsync(newhouseModel);
         }
+
+        public async Task<IResult> UpdateAsync(NewhouseDto newhouseDto)
+        {
+            var newhouseModel = this._mapper.Map<NewhouseModel>(newhouseDto);
+
+            newhouseModel.UpdateTime = DateTime.Now;
+
+            return await this._newhouseRepository.UpdateAsync(newhouseModel);
+        }
     }
 }

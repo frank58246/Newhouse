@@ -12,5 +12,7 @@ namespace NewHouse.Repository.Interface
         Task<IResult> InsertAsync(NewhouseModel newhouseModel);
 
         Task<NewhouseModel> GetAsync(int sid);
+
+        Task<IResult> UpdateAsync(NewhouseModel newhouseModel);
     }
 }

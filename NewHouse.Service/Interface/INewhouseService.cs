@@ -12,5 +12,7 @@ namespace NewHouse.Service.Interface
         Task<NewhouseDto> GetAsync(int hid);
 
         Task<IResult> InsertAsync(NewhouseDto newhouseDto);
+
+        Task<IResult> UpdateAsync(NewhouseDto newhouseDto);
     }
 }

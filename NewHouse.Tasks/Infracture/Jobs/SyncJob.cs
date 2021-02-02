@@ -42,6 +42,7 @@ namespace NewHouse.Tasks.Infracture.Jobs
                 var newhouseDto = await this._newhouseConverter.CovertAsync(newhouse591);
                 var newhouseInDatabase = await this._newhouseService
                     .GetAsync(newhouseDto.Hid.GetValueOrDefault());
+
                 if (newhouseInDatabase is null)
                 {
                     await this._newhouseService.InsertAsync(newhouseDto);
@@ -49,7 +50,8 @@ namespace NewHouse.Tasks.Infracture.Jobs
                 }
                 else
                 {
-                    // update
+                    await this._newhouseService.UpdateAsync(newhouseDto);
+                    context.WriteLine($"{DateTime.Now} 更新HID:{newhouseDto.Hid}，{newhouseDto.BuildName}");
                 }
 
                 context.WriteLine($"{DateTime.Now} Job結束");
