@@ -13,9 +13,12 @@ namespace NewHouse.Common.Caching
 
         private readonly IMemoryCache _cache;
 
-        public MemoryCacheManager(IMemoryCache cache)
+        private readonly TimeSpan _defaultCacheTime;
+
+        public MemoryCacheManager(IMemoryCache cache, TimeSpan defaultCacheTime)
         {
             this._cache = cache;
+            this._defaultCacheTime = defaultCacheTime;
         }
 
         public T Get<T>(string key)
@@ -33,7 +36,17 @@ namespace NewHouse.Common.Caching
 
         public bool Save<T>(string key, T value)
         {
-            this._cache.Set<T>(key, value);
+            return this.Save(key, value, this._defaultCacheTime);
+        }
+
+        public bool Save<T>(string key, T value, TimeSpan cacheTime)
+        {
+            var option = new MemoryCacheEntryOptions
+            {
+                SlidingExpiration = cacheTime
+            };
+
+            this._cache.Set(key, value, option);
 
             return this.Get<T>(key) != null;
         }

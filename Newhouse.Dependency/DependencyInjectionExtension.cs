@@ -56,13 +56,14 @@ namespace Newhouse.DependencyInjection
             });
 
             var serviceProvider = services.BuildServiceProvider();
+            var defaultCacheTime = TimeSpan.FromMinutes(30);
 
             var memoryCache = serviceProvider.GetService<IMemoryCache>();
-            var memoryCacheManager = new MemoryCacheManager(memoryCache);
+            var memoryCacheManager = new MemoryCacheManager(memoryCache, defaultCacheTime);
             services.AddSingleton<ICacheManager>(memoryCacheManager);
 
             var distributeCache = serviceProvider.GetService<IDistributedCache>();
-            var distributeCacheManager = new DistributeCacheManger(distributeCache);
+            var distributeCacheManager = new DistributeCacheManger(distributeCache, defaultCacheTime);
             services.AddSingleton<ICacheManager>(distributeCacheManager);
 
             services.AddSingleton<ICacheManagerProvider>(x =>

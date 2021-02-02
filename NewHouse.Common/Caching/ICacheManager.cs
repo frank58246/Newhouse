@@ -9,5 +9,7 @@ namespace NewHouse.Common.Caching
         T Get<T>(string key);
 
         bool Save<T>(string key, T value);
+
+        bool Save<T>(string key, T value, TimeSpan timeSpan);
     }
 }

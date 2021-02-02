@@ -14,9 +14,12 @@ namespace NewHouse.Common.Caching
 
         private IDistributedCache _cache;
 
-        public DistributeCacheManger(IDistributedCache cache)
+        private TimeSpan _defaultCacheTime;
+
+        public DistributeCacheManger(IDistributedCache cache, TimeSpan defaultCacheTime)
         {
             this._cache = cache;
+            this._defaultCacheTime = defaultCacheTime;
         }
 
         public T Get<T>(string key)
@@ -35,8 +38,17 @@ namespace NewHouse.Common.Caching
 
         public bool Save<T>(string key, T value)
         {
+            return this.Save(key, value, this._defaultCacheTime);
+        }
+
+        public bool Save<T>(string key, T value, TimeSpan timeSpan)
+        {
+            var option = new DistributedCacheEntryOptions()
+            {
+                SlidingExpiration = timeSpan
+            };
             var bytes = MessagePackSerializer.Serialize(value);
-            this._cache.Set(key, bytes);
+            this._cache.Set(key, bytes, option);
             return this._cache.Get(key) != null;
         }
 
