@@ -31,5 +31,10 @@ namespace NewHouse.Common.Constants
                 public static string ConstructionCompany = BasicInfo("營造公司");
             }
         }
+
+        public static class ElasticSearchIndex
+        {
+            public static string Newhouse = "newhouse";
+        }
     }
 }
