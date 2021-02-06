@@ -16,13 +16,11 @@ namespace NewHouse.Repository.Implement
     {
         private readonly IElasticClient _elasticClient;
 
-        private readonly string _indexName;
+        protected abstract string _indexName { get; }
 
-        public ElasticSearchBaseRepository(IElasticClient elasticClient,
-            string indexName)
+        public ElasticSearchBaseRepository(IElasticClient elasticClient)
         {
             this._elasticClient = elasticClient;
-            this._indexName = indexName;
         }
 
         public async Task<IResult> CheckOrCreateIndexAsync<T>() where T : class
