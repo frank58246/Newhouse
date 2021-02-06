@@ -57,7 +57,7 @@ namespace NewHouse.Tasks.Infracture.Jobs
                         context.WriteLine($"{DateTime.Now} 新增hid:{hid}591新建案");
                     }
                 }
-                catch (Exception e)
+                catch (Exception)
                 {
                     context.WriteLine($"{DateTime.Now} hid:{hid}591新建案抓取失敗");
                     continue;

@@ -25,6 +25,8 @@ namespace NewHouse.Common.Helper
 
         public string Redis => this.GetConnectionString("Redis");
 
+        public string ElasticSearch => this.GetConnectionString("ElasticSearch");
+
         private string GetConnectionString(string key)
         {
             if (this._connectionSetting.Connections.ContainsKey(key))

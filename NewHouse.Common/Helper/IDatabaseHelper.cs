@@ -16,5 +16,7 @@ namespace NewHouse.Common.Helper
         string Common { get; }
 
         string Redis { get; }
+
+        string ElasticSearch { get; }
     }
 }

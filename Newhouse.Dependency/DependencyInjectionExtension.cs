@@ -3,6 +3,7 @@ using Microsoft.Extensions.Caching.Distributed;
 using Microsoft.Extensions.Caching.Memory;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Nest;
 using NewHouse.Common.Caching;
 using NewHouse.Common.Helper;
 using NewHouse.Repository.Implement;
@@ -13,6 +14,7 @@ using StackExchange.Redis;
 using System;
 using System.Collections.Generic;
 using System.Net.Http;
+using System.Runtime.CompilerServices;
 using System.Text;
 
 namespace Newhouse.DependencyInjection
@@ -32,6 +34,8 @@ namespace Newhouse.DependencyInjection
             AddDecorator(services);
 
             AddCache(services);
+
+            AddElasticSearch(services);
         }
 
         private static void AddConfig(this IServiceCollection services,
@@ -75,6 +79,16 @@ namespace Newhouse.DependencyInjection
         {
             services.AddTransient<INewhouseRepository, NewhouseRepository>()
                    .Decorate<INewhouseRepository, CachedNewhouseRepository>();
+        }
+
+        private static void AddElasticSearch(this IServiceCollection services)
+        {
+            var databaseHelper = services.BuildServiceProvider()
+                 .GetService<IDatabaseHelper>();
+
+            var node = new Uri(databaseHelper.ElasticSearch);
+            var elasticSearchClient = new ElasticClient(node);
+            services.AddSingleton<IElasticClient>(elasticSearchClient);
         }
     }
 }
