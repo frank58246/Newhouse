@@ -85,7 +85,11 @@ namespace NewHouse.Tasks
             });
 
             // Hangfire
-            app.UseHangfireServer();
+            var hangfireOption = new BackgroundJobServerOptions
+            {
+                WorkerCount = Environment.ProcessorCount * 20
+            };
+            app.UseHangfireServer(hangfireOption);
             app.UseHangfireDashboard("/hangfire",
                                      new DashboardOptions
                                      {
@@ -97,13 +101,18 @@ namespace NewHouse.Tasks
                                          //IsReadOnlyFunc = f => true
                                      }
            );
-            BackgroundJob.Enqueue<ISyncJob>(job =>
-                    job.SyncAllAsync(null));
-            //for (int i = 120000; i < 121000; i++)
-            //{
-            //    BackgroundJob.Enqueue<ICrawlerJob>(job =>
-            //        job.FetchNewHouseAsync(null, i));
-            //}
+            //BackgroundJob.Enqueue<ISyncJob>(job =>
+            //        job.SyncAllAsync(null));
+
+            var startHid = 100000;
+            var endHid = 130000;
+            var pageSize = 500;
+
+            for (int i = startHid; i < endHid; i += pageSize)
+            {
+                BackgroundJob.Enqueue<ICrawlerJob>(job =>
+                job.FetchNewHouseAsync(null, i, i + pageSize));
+            }
         }
     }
 }

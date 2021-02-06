@@ -61,9 +61,10 @@ namespace NewHouse.Service.Implement
             return await this._newhouse591Repository.InsertAsync(model);
         }
 
-        public Task<IResult> UpdateAsync(Newhouse591Dto newhouse)
+        public async Task<IResult> UpdateAsync(Newhouse591Dto newhouse)
         {
-            throw new NotImplementedException();
+            // TODO update
+            return new Result();
         }
     }
 }

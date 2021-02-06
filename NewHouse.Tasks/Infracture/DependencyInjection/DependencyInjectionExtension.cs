@@ -46,6 +46,7 @@ namespace NewHouse.Tasks.Infracture.DependencyInjection
                    .UseDashboardMetric(DashboardMetrics.FailedCount)
                    .UseDashboardMetric(DashboardMetrics.DeletedCount)
                    .UseDashboardMetric(DashboardMetrics.AwaitingCount)
+
                    .UseConsole()                                                                                                                //from Hangfire.Console
                    .UseSqlServerStorage(connection));
         }

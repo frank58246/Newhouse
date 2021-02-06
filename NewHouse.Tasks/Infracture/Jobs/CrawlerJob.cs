@@ -21,26 +21,47 @@ namespace NewHouse.Tasks.Infracture.Jobs
             this._newhouseService = newhouseService;
         }
 
-        public async Task FetchNewHouseAsync(PerformContext context, int hid)
+        public async Task FetchNewHouseAsync(PerformContext context, int startHid, int endHid)
         {
-            context.WriteLine($"{DateTime.Now} 開始抓取591新建案，hid:{hid}");
-            var newhouse = await this._newhouseService.FetchNewhouseAsync(hid);
-            if (newhouse is null)
+            var hids = new List<int>();
+            for (int i = startHid; i < endHid; i++)
             {
-                context.WriteLine($"{DateTime.Now} 查無新建案");
-                return;
+                hids.Add(i);
             }
 
-            var exist = await this._newhouseService.ExistAsync(hid);
-            if (exist)
+            context.WriteLine($"{DateTime.Now} 抓取hid{startHid}至{endHid}591新建案，" +
+                $"共計{endHid - startHid}筆");
+
+            var bar = context.WriteProgressBar();
+            foreach (var hid in hids.WithProgress(bar))
             {
-                //var upateResult = await this._newhouseService.UpdateAsync(newhouse);
-                //context.WriteLine($"{DateTime.Now} 更新591新建案，hid:{hid}");
-            }
-            else
-            {
-                var inserttResult = await this._newhouseService.InsertAsync(newhouse);
-                context.WriteLine($"{DateTime.Now} 新增hid:{hid}591新建案");
+                try
+                {
+                    context.WriteLine($"{DateTime.Now} 開始抓取591新建案，hid:{hid}");
+                    var newhouse = await this._newhouseService.FetchNewhouseAsync(hid);
+                    if (newhouse is null)
+                    {
+                        context.WriteLine($"{DateTime.Now} 查無hif{hid}新建案");
+                        continue;
+                    }
+
+                    var exist = await this._newhouseService.ExistAsync(hid);
+                    if (exist)
+                    {
+                        var upateResult = await this._newhouseService.UpdateAsync(newhouse);
+                        context.WriteLine($"{DateTime.Now} 更新591新建案，hid:{hid}");
+                    }
+                    else
+                    {
+                        var inserttResult = await this._newhouseService.InsertAsync(newhouse);
+                        context.WriteLine($"{DateTime.Now} 新增hid:{hid}591新建案");
+                    }
+                }
+                catch (Exception e)
+                {
+                    context.WriteLine($"{DateTime.Now} hid:{hid}591新建案抓取失敗");
+                    continue;
+                }
             }
 
             context.WriteLine($"{DateTime.Now} Job結束");
