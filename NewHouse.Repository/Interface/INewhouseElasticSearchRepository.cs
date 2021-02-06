@@ -11,7 +11,7 @@ namespace NewHouse.Repository.Interface
     /// <summary>
     /// 新建案的ElasticSearchRepository
     /// </summary>
-    public interface INewhouseESRepository
+    public interface INewhouseElasticSearchRepository
     {
         Task<IResult> CheckOrCreateIndexAsync();
 

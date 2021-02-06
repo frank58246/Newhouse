@@ -14,5 +14,7 @@ namespace NewHouse.Service.Interface
         Task<IResult> InsertAsync(NewhouseDto newhouseDto);
 
         Task<IResult> UpdateAsync(NewhouseDto newhouseDto);
+
+        Task<IResult> SyncElasticSearchAsync(IEnumerable<NewhouseDto> newhouseDtos);
     }
 }

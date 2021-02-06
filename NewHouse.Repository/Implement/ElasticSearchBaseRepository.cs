@@ -23,8 +23,26 @@ namespace NewHouse.Repository.Implement
             this._elasticClient = elasticClient;
         }
 
+        public async Task<bool> ExistIndexAsync()
+        {
+            var response = await this._elasticClient.Indices.
+                    ExistsAsync(this._indexName);
+
+            return response.Exists;
+        }
+
         public async Task<IResult> CheckOrCreateIndexAsync<T>() where T : class
         {
+            var existIndex = await this.ExistIndexAsync();
+
+            if (existIndex)
+            {
+                return new Result
+                {
+                    Success = true
+                };
+            }
+
             var createResponse = await this._elasticClient.Indices
                 .CreateAsync(this._indexName, c => c.Map<T>(m => m.AutoMap()));
 
@@ -54,13 +72,12 @@ namespace NewHouse.Repository.Implement
 
         public async Task<IResult> DeleteAllAsync<T>() where T : class
         {
-            var response = await this._elasticClient.DeleteByQueryAsync<T>(del =>
-               del.Query(q => q.MatchAll()));
+            var response = await this._elasticClient.Indices.
+                DeleteAsync(this._indexName);
 
             var result = new Result()
             {
                 Success = response.IsValid,
-                AffectRow = (int)response.Deleted,
                 Message = response.DebugInformation
             };
 

@@ -10,10 +10,10 @@ using System.Threading.Tasks;
 
 namespace NewHouse.Repository.Implement
 {
-    public class NewhouseESRepository : ElasticSearchBaseRepository,
-        INewhouseESRepository
+    public class NewhouseElasticSearchRepository : ElasticSearchBaseRepository,
+        INewhouseElasticSearchRepository
     {
-        public NewhouseESRepository(IElasticClient elasticClient) : base(elasticClient)
+        public NewhouseElasticSearchRepository(IElasticClient elasticClient) : base(elasticClient)
         {
         }
 

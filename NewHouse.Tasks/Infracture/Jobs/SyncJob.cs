@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using Hangfire.Console;
 using Hangfire.Server;
+using NewHouse.Service.Dtos;
 using NewHouse.Service.Interface;
 using System;
 using System.Collections.Generic;
@@ -37,9 +38,21 @@ namespace NewHouse.Tasks.Infracture.Jobs
 
             context.WriteLine($"{DateTime.Now}: 591資料共計{all591House.Count()}筆");
 
-            foreach (var newhouse591 in all591House)
+            var newhouseDtos = all591House
+                .Select(async x => await this._newhouseConverter.CovertAsync(x))
+                .Select(x => x.Result);
+
+            // sync ElasticSearch
+            context.WriteLine($"{DateTime.Now}: 更新資料至ES");
+            var result = await this._newhouseService.SyncElasticSearchAsync(newhouseDtos);
+
+            context.WriteLine($"{DateTime.Now}: 更新至ES結果:{result.Success}");
+            context.WriteLine($"{DateTime.Now}: 更新至ES訊息:{result.Message}");
+
+            // update DB
+            return;
+            foreach (var newhouseDto in newhouseDtos)
             {
-                var newhouseDto = await this._newhouseConverter.CovertAsync(newhouse591);
                 var newhouseInDatabase = await this._newhouseService
                     .GetAsync(newhouseDto.Hid.GetValueOrDefault());
 
@@ -53,9 +66,8 @@ namespace NewHouse.Tasks.Infracture.Jobs
                     await this._newhouseService.UpdateAsync(newhouseDto);
                     context.WriteLine($"{DateTime.Now} 更新HID:{newhouseDto.Hid}，{newhouseDto.BuildName}");
                 }
-
-                context.WriteLine($"{DateTime.Now} Job結束");
             }
+            context.WriteLine($"{DateTime.Now} Job結束");
         }
     }
 }

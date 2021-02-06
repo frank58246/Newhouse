@@ -15,13 +15,18 @@ namespace NewHouse.Service.Implement
     {
         private readonly INewhouseRepository _newhouseRepository;
 
+        private readonly INewhouseElasticSearchRepository
+            _newhouseElasticSearchRepository;
+
         private readonly IMapper _mapper;
 
         public NewhouseService(IMapper mapper,
-            INewhouseRepository newhouseRepository)
+            INewhouseRepository newhouseRepository,
+            INewhouseElasticSearchRepository newhouseElasticSearchRepository)
         {
             this._mapper = mapper;
             this._newhouseRepository = newhouseRepository;
+            this._newhouseElasticSearchRepository = newhouseElasticSearchRepository;
         }
 
         public async Task<NewhouseDto> GetAsync(int hid)
@@ -42,6 +47,30 @@ namespace NewHouse.Service.Implement
             newhouseModel.UpdateTime = DateTime.Now;
 
             return await this._newhouseRepository.InsertAsync(newhouseModel);
+        }
+
+        public async Task<IResult> SyncElasticSearchAsync(IEnumerable<NewhouseDto> newhouseDtos)
+        {
+            IResult result;
+            result = await this._newhouseElasticSearchRepository.CheckOrCreateIndexAsync();
+
+            if (result.Success.Equals(false))
+            {
+                return result;
+            }
+
+            result = await this._newhouseElasticSearchRepository.DeleteAllAsync();
+
+            if (result.Success.Equals(false))
+            {
+                return result;
+            }
+
+            var sources = this._mapper
+                .Map<IEnumerable<NewhouseESModel>>(newhouseDtos);
+
+            return await this._newhouseElasticSearchRepository
+                        .InsertAsync(sources);
         }
 
         public async Task<IResult> UpdateAsync(NewhouseDto newhouseDto)
