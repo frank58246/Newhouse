@@ -101,8 +101,8 @@ namespace NewHouse.Tasks
                                          //IsReadOnlyFunc = f => true
                                      }
            );
-            //BackgroundJob.Enqueue<ISyncJob>(job =>
-            //        job.SyncAllAsync(null));
+            BackgroundJob.Enqueue<ISyncJob>(job =>
+                    job.SyncAllAsync(null));
 
             var startHid = 100000;
             var endHid = 130000;
@@ -110,8 +110,8 @@ namespace NewHouse.Tasks
 
             for (int i = startHid; i < endHid; i += pageSize)
             {
-                BackgroundJob.Enqueue<ICrawlerJob>(job =>
-                job.FetchNewHouseAsync(null, i, i + pageSize));
+                //BackgroundJob.Enqueue<ICrawlerJob>(job =>
+                //job.FetchNewHouseAsync(null, i, i + pageSize));
             }
         }
     }
