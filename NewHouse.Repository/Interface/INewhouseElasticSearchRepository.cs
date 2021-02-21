@@ -18,5 +18,7 @@ namespace NewHouse.Repository.Interface
         Task<IResult> InsertAsync(IEnumerable<NewhouseESModel> sources);
 
         Task<IResult> DeleteAllAsync();
+
+        Task<PageModel<NewhouseESModel>> SearchByAreaAsync(IEnumerable<string> areas);
     }
 }

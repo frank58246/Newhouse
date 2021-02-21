@@ -14,7 +14,7 @@ namespace NewHouse.Repository.Implement
     /// </summary>
     public abstract class ElasticSearchBaseRepository
     {
-        private readonly IElasticClient _elasticClient;
+        protected readonly IElasticClient _elasticClient;
 
         protected abstract string _indexName { get; }
 

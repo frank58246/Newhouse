@@ -16,5 +16,7 @@ namespace NewHouse.Service.Interface
         Task<IResult> UpdateAsync(NewhouseDto newhouseDto);
 
         Task<IResult> SyncElasticSearchAsync(IEnumerable<NewhouseDto> newhouseDtos);
+
+        Task<PageModel<NewhouseSimpleDto>> SearchAsync(NewhouseSearchParameterDto parameter);
     }
 }

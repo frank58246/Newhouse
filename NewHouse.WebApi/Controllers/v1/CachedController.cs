@@ -21,7 +21,7 @@ namespace NewHouse.WebApi.Controllers.v1
 
         [HttpDelete]
         [Route("api/delete")]
-        public async Task<IActionResult> Delete(int sid)
+        public IActionResult Delete(int sid)
         {
             if (sid <= 0)
             {
@@ -39,19 +39,6 @@ namespace NewHouse.WebApi.Controllers.v1
             {
                 Success = deleteResult.Success,
                 AffectRow = deleteResult.Success ? 1 : 0
-            };
-
-            return Ok(successResult);
-        }
-
-        [HttpDelete]
-        [Route("api/delete/all")]
-        public async Task<IActionResult> DeleteAll()
-        {
-            // TODO 串接真實邏輯
-            var successResult = new Result()
-            {
-                Success = true
             };
 
             return Ok(successResult);

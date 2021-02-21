@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using NewHouse.Common.Enums;
 using NewHouse.Common.Model;
 using NewHouse.Repository.Interface;
 using NewHouse.Repository.Model;
@@ -47,6 +48,28 @@ namespace NewHouse.Service.Implement
             newhouseModel.UpdateTime = DateTime.Now;
 
             return await this._newhouseRepository.InsertAsync(newhouseModel);
+        }
+
+        public async Task<PageModel<NewhouseSimpleDto>> SearchAsync(NewhouseSearchParameterDto parameter)
+        {
+            var res = await this._newhouseElasticSearchRepository.SearchByAreaAsync(null);
+
+            switch (parameter.SeaarchMode)
+            {
+                case NewhouseSearchMode.Default:
+                    break;
+
+                case NewhouseSearchMode.Area:
+
+                    break;
+
+                case NewhouseSearchMode.TotalPrice:
+                    break;
+
+                default:
+                    break;
+            }
+            return new PageModel<NewhouseSimpleDto>();
         }
 
         public async Task<IResult> SyncElasticSearchAsync(IEnumerable<NewhouseDto> newhouseDtos)
