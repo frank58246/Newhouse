@@ -50,6 +50,8 @@ namespace NewHouse.WebApi
             services.AddControllersWithViews();
 
             services.AddMapping();
+
+            services.AddSwagger();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -77,6 +79,13 @@ namespace NewHouse.WebApi
                 endpoints.MapControllerRoute(
                     name: "default",
                     pattern: "{controller=Home}/{action=Index}/{id?}");
+            });
+
+            app.UseSwagger();
+
+            app.UseSwaggerUI(c =>
+            {
+                c.SwaggerEndpoint("/swagger/v1/swagger.json", "NewHouse API V1");
             });
         }
     }
