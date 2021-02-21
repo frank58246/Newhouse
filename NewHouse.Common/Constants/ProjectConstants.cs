@@ -39,12 +39,9 @@ namespace NewHouse.Common.Constants
 
         public static class Caching
         {
-            public static class NewHouse
+            public static class KeyPrefix
             {
-                public static string KeyPrefix = "NewhouseModel::";
-
-                public static Func<int, string> CacheKey =
-                    hid => $"{KeyPrefix}{hid}";
+                public static string NewHouse = "NewhouseModel::";
             }
         }
     }

@@ -11,5 +11,9 @@ namespace NewHouse.Common.Caching
         bool Save<T>(string key, T value);
 
         bool Save<T>(string key, T value, TimeSpan timeSpan);
+
+        bool Exist(string key);
+
+        bool Delete(string key);
     }
 }

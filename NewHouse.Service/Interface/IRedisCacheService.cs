@@ -8,6 +8,6 @@ namespace NewHouse.Service.Interface
 {
     public interface IRedisCacheService
     {
-        Task<IResult> DeleteNewhouseCache(int hid);
+        IResult DeleteNewhouseCache(int sid);
     }
 }

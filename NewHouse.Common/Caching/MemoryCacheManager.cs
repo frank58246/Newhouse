@@ -21,6 +21,18 @@ namespace NewHouse.Common.Caching
             this._defaultCacheTime = defaultCacheTime;
         }
 
+        public bool Delete(string key)
+        {
+            this._cache.Remove(key);
+
+            return this.Exist(key).Equals(false);
+        }
+
+        public bool Exist(string key)
+        {
+            return this._cache.Get(key) != null;
+        }
+
         public T Get<T>(string key)
         {
             lock (GetAsyncLock(key))

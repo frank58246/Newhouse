@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using NewHouse.Common.Model;
+using NewHouse.Service.Interface;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,6 +12,13 @@ namespace NewHouse.WebApi.Controllers.v1
     [Route("[controller]")]
     public class CachedController : Controller
     {
+        private readonly IRedisCacheService _redisCacheService;
+
+        public CachedController(IRedisCacheService redisCacheService)
+        {
+            this._redisCacheService = redisCacheService;
+        }
+
         [HttpDelete]
         [Route("api/delete")]
         public async Task<IActionResult> Delete(int sid)
@@ -25,11 +33,12 @@ namespace NewHouse.WebApi.Controllers.v1
                 return BadRequest(errorResult);
             }
 
-            // TODO 串接真實邏輯
+            var deleteResult = this._redisCacheService.DeleteNewhouseCache(sid);
+
             var successResult = new Result()
             {
-                Success = true,
-                AffectRow = 1
+                Success = deleteResult.Success,
+                AffectRow = deleteResult.Success ? 1 : 0
             };
 
             return Ok(successResult);

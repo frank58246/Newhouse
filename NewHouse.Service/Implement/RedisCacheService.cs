@@ -18,10 +18,19 @@ namespace NewHouse.Service.Implement
             this._cacheManager = cacheManagerProvider.GetDistrubuteCacheManager();
         }
 
-        public Task<IResult> DeleteNewhouseCache(int hid)
+        public IResult DeleteNewhouseCache(int sid)
         {
-            var key = ProjectConstants.Caching.NewHouse.CacheKey(hid);
-            throw new NotImplementedException();
+            var key = $"{ProjectConstants.Caching.KeyPrefix.NewHouse}{sid}";
+
+            var deleteSuccess = this._cacheManager.Delete(key);
+
+            var result = new Result
+            {
+                Success = deleteSuccess,
+                AffectRow = deleteSuccess ? 1 : 0
+            };
+
+            return result;
         }
     }
 }
