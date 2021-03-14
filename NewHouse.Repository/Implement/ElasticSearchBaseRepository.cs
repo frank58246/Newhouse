@@ -70,6 +70,14 @@ namespace NewHouse.Repository.Implement
             return result;
         }
 
+        public async Task<IEnumerable<T>> SearchAsync<T>(SearchRequest request)
+            where T : class
+        {
+            var result = await this._elasticClient.SearchAsync<T>(request);
+
+            return result.Documents;
+        }
+
         public async Task<IResult> DeleteAllAsync<T>() where T : class
         {
             var response = await this._elasticClient.

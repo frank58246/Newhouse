@@ -52,7 +52,7 @@ namespace NewHouse.Service.Implement
 
         public async Task<PageModel<NewhouseSimpleDto>> SearchAsync(NewhouseSearchParameterDto parameter)
         {
-            var res = await this._newhouseElasticSearchRepository.SearchByAreaAsync(null);
+            var res = await this._newhouseElasticSearchRepository.SearchByAreaAsync(parameter.Areas);
 
             switch (parameter.SeaarchMode)
             {

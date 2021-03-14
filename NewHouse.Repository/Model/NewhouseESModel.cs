@@ -8,10 +8,10 @@ namespace NewHouse.Repository.Model
     [ElasticsearchType(RelationName = "newhouse")]
     public class NewhouseESModel
     {
-        [Text(Name = "buildName")]
+        [Text]
         public string BuildName { get; set; }
 
-        [Number(Name = "highPinPrice")]
+        [Number]
         public double HighPinPrice { get; set; }
 
         [Number(Name = "lowPinPrice")]

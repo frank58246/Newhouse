@@ -33,16 +33,23 @@ namespace NewHouse.Repository.Implement
         public async Task<PageModel<NewhouseESModel>> SearchByAreaAsync(IEnumerable<string> areas)
         {
             //TODO　串接真正的邏輯
+            var mustClauses = new List<QueryContainer>();
+            if (areas != null && areas.Count() > 0)
+            {
+                mustClauses.Add(new TermsQuery
+                {
+                    Field = Infer.Field<NewhouseESModel>(c => c.County),
+                    Terms = areas
+                });
+            }
 
-            var searchResult = _elasticClient.Search<NewhouseESModel>(x => x
-                .Index(_indexName)
-                .Query(query => query
-                    .Term(term => term
-                        .Field(field => field.County.Suffix("keyword"))
-                        .Value("花蓮縣")
-                    )
-                )
-            );
+            var searchRequest = new SearchRequest(this._indexName)
+            {
+                Size = 100,
+                Query = new BoolQuery { Must = mustClauses }
+            };
+
+            var res = await this.SearchAsync<NewhouseESModel>(searchRequest);
 
             return new PageModel<NewhouseESModel>();
         }
