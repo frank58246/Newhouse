@@ -34,6 +34,8 @@ namespace NewHouse.Common.Constants
 
         public static class ElasticSearchIndex
         {
+            public static string Default = "default_index";
+
             public static string Newhouse = "newhouse";
         }
 

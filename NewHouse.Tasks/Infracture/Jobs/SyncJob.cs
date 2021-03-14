@@ -35,7 +35,6 @@ namespace NewHouse.Tasks.Infracture.Jobs
         {
             context.WriteLine($"{DateTime.Now}: 開始撈取資料庫591資料");
             var all591House = await this._newhouse591Service.GetAllAsync();
-
             context.WriteLine($"{DateTime.Now}: 591資料共計{all591House.Count()}筆");
 
             var newhouseDtos = all591House

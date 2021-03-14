@@ -19,5 +19,4 @@
     <ProjectReference Include="..\NewHouse.Repository\NewHouse.Repository.csproj" />
     <ProjectReference Include="..\NewHouse.Service\NewHouse.Service.csproj" />
   </ItemGroup>
-
 </Project>

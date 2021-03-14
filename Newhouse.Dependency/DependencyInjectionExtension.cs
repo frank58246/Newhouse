@@ -5,10 +5,12 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Nest;
 using NewHouse.Common.Caching;
+using NewHouse.Common.Constants;
 using NewHouse.Common.Helper;
 using NewHouse.Repository.Implement;
 using NewHouse.Repository.Implement.Decorator;
 using NewHouse.Repository.Interface;
+using NewHouse.Repository.Model;
 using NewHouse.Service.Mapping;
 using StackExchange.Redis;
 using System;
@@ -84,10 +86,17 @@ namespace Newhouse.DependencyInjection
         private static void AddElasticSearch(this IServiceCollection services)
         {
             var databaseHelper = services.BuildServiceProvider()
-                 .GetService<IDatabaseHelper>();
+                             .GetService<IDatabaseHelper>();
 
-            var node = new Uri(databaseHelper.ElasticSearch);
-            var elasticSearchClient = new ElasticClient(node);
+            var uri = new Uri(databaseHelper.ElasticSearch);
+            var settings = new ConnectionSettings(uri)
+                .DefaultIndex(ProjectConstants.ElasticSearchIndex.Default)
+                .DefaultMappingFor<NewhouseESModel>(m => m
+                .IndexName(ProjectConstants.ElasticSearchIndex.Newhouse));
+
+            var elasticSearchClient = new ElasticClient(settings);
+            services.AddSingleton<IElasticClient>(elasticSearchClient);
+
             services.AddSingleton<IElasticClient>(elasticSearchClient);
         }
     }

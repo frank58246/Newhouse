@@ -72,8 +72,8 @@ namespace NewHouse.Repository.Implement
 
         public async Task<IResult> DeleteAllAsync<T>() where T : class
         {
-            var response = await this._elasticClient.Indices.
-                DeleteAsync(this._indexName);
+            var response = await this._elasticClient.
+                DeleteByQueryAsync<T>(q => q.MatchAll());
 
             var result = new Result()
             {
