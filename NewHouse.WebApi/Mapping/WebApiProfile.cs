@@ -1,7 +1,7 @@
 ﻿using AutoMapper;
 using NewHouse.Common.Enums;
+using NewHouse.Common.Model;
 using NewHouse.Service.Dtos;
-using NewHouse.WebApi.Models.Input;
 using NewHouse.WebApi.Models.Output;
 using System;
 using System.Collections.Generic;
@@ -16,9 +16,7 @@ namespace NewHouse.WebApi.Mapping
         {
             this.CreateMap<NewhouseDto, NewhouseViewModel>();
 
-            this.CreateMap<NewhouseSearchParameter, NewhouseSearchParameterDto>()
-                .ForMember(d => d.SeaarchMode, d => d.MapFrom(o =>
-                    (NewhouseSearchMode)o.SeaarchMode));
+            this.CreateMap<NewhouseSearchParameter, NewhouseSearchParameterDto>();
         }
     }
 }

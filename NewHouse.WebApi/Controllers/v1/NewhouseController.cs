@@ -4,7 +4,6 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using NewHouse.Common.Model;
 using NewHouse.Service.Dtos;
 using NewHouse.Service.Interface;
-using NewHouse.WebApi.Models.Input;
 using NewHouse.WebApi.Models.Output;
 using System;
 using System.Collections.Generic;

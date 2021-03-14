@@ -1,11 +1,10 @@
-﻿using NewHouse.Common.Enums;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace NewHouse.Service.Dtos
+namespace NewHouse.Common.Model
 {
-    public class NewhouseSearchParameterDto
+    public class NewhouseSearchParameter
     {
         /// <summary>
         /// 起始筆數，預設為1

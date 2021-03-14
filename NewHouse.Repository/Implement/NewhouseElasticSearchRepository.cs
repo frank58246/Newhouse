@@ -30,28 +30,55 @@ namespace NewHouse.Repository.Implement
         public async Task<IResult> InsertAsync(IEnumerable<NewhouseESModel> sources) =>
             await this.BulkIndexAsync(sources);
 
-        public async Task<PageModel<NewhouseESModel>> SearchByAreaAsync(IEnumerable<string> areas)
+        public async Task<PageModel<NewhouseESModel>> SearchAreaAsync(NewhouseSearchParameterModel parameter)
         {
             //TODO　串接真正的邏輯
             var mustClauses = new List<QueryContainer>();
-            if (areas != null && areas.Count() > 0)
+
+            var shouldClause = new List<QueryContainer>();
+
+            if (parameter.Areas != null && parameter.Areas.Count() > 0)
             {
-                mustClauses.Add(new TermsQuery
+                // 把台北市_中正區，轉為<台北市,中正區>
+                var validAreas = parameter.Areas
+                    .Select(x => x.Split("_"))
+                    .Where(x => x.Count() == 2)
+                    .Select(x => new Tuple<string, string>(x[0], x[1]));
+
+                foreach (var area in validAreas)
                 {
-                    Field = Infer.Field<NewhouseESModel>(c => c.County),
-                    Terms = areas
-                });
+                    var areaMustCluase = new List<QueryContainer>();
+
+                    var countyQuery = new TermQuery
+                    {
+                        Field = Infer.Field<NewhouseESModel>(c => c.County),
+                        Value = area.Item1
+                    };
+
+                    var districeQuery = new TermQuery
+                    {
+                        Field = Infer.Field<NewhouseESModel>(c => c.District),
+                        Value = area.Item2
+                    };
+
+                    shouldClause.Add(countyQuery && districeQuery);
+                }
             }
 
             var searchRequest = new SearchRequest(this._indexName)
             {
-                Size = 100,
-                Query = new BoolQuery { Must = mustClauses }
+                From = parameter.Start,
+                Size = parameter.Count,
+                Query = new BoolQuery
+                {
+                    Must = mustClauses,
+                    Should = shouldClause
+                }
             };
 
-            var res = await this.SearchAsync<NewhouseESModel>(searchRequest);
+            var result = await this.SearchAsync<NewhouseESModel>(searchRequest);
 
-            return new PageModel<NewhouseESModel>();
+            return result;
         }
     }
 }

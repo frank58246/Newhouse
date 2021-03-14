@@ -6,11 +6,11 @@ namespace NewHouse.Common.Model
 {
     public class PageModel<T>
     {
-        public int Total { get; set; }
+        public long Total { get; set; }
 
         public int Start { get; set; }
 
-        public int End { get; set; }
+        public int Size { get; set; }
 
         public IEnumerable<T> Data { get; set; }
     }

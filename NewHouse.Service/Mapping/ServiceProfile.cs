@@ -3,6 +3,7 @@ using NewHouse.Repository.Model;
 using NewHouse.Service.Dtos;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
 
@@ -21,6 +22,8 @@ namespace NewHouse.Service.Mapping
             this.CreateMap<DistrictModel, DistrictDto>();
 
             this.CreateMap<NewhouseDto, NewhouseESModel>();
+
+            this.CreateMap<NewhouseSearchParameterDto, NewhouseSearchParameterModel>();
         }
     }
 }

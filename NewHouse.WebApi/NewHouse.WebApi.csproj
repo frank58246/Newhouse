@@ -18,4 +18,8 @@
     <ProjectReference Include="..\Newhouse.Dependency\Newhouse.DependencyInjection.csproj" />
     <ProjectReference Include="..\NewHouse.Service\NewHouse.Service.csproj" />
   </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Models\Input\" />
+  </ItemGroup>
 </Project>

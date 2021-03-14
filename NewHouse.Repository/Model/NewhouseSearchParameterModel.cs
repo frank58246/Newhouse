@@ -1,11 +1,10 @@
-﻿using NewHouse.Common.Enums;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace NewHouse.Service.Dtos
+namespace NewHouse.Repository.Model
 {
-    public class NewhouseSearchParameterDto
+    public class NewhouseSearchParameterModel
     {
         /// <summary>
         /// 起始筆數，預設為1
@@ -18,7 +17,7 @@ namespace NewHouse.Service.Dtos
         public int Count { get; set; }
 
         /// <summary>
-        /// 縣市行政區域，用底線分隔，如"台中市_大里區"
+        /// 縣市行政區域
         /// </summary>
         public List<string> Areas { get; set; }
 
