@@ -8,25 +8,43 @@ namespace NewHouse.Repository.Model
     [ElasticsearchType(RelationName = "newhouse")]
     public class NewhouseESModel
     {
-        [Text]
+        public int Sid { get; set; }
+
+        /// <summary>
+        /// 建案名稱
+        /// </summary>
         public string BuildName { get; set; }
 
-        [Number]
+        /// <summary>
+        /// 最高單價
+        /// </summary>
         public double HighPinPrice { get; set; }
 
-        [Number(Name = "lowPinPrice")]
+        /// <summary>
+        /// 最低單價
+        /// </summary>
         public double LowPinPrice { get; set; }
 
-        [Number(Name = "highPrice")]
+        /// <summary>
+        /// 最高總價
+        /// </summary>
         public double HighPrice { get; set; }
 
-        [Number(Name = "lowPrice")]
+        /// <summary>
+        /// 最低總價
+        /// </summary>
         public double LowPrice { get; set; }
 
-        [Keyword(Name = "county")]
+        /// <summary>
+        /// 縣市
+        /// </summary>
+        [Keyword]
         public string County { get; set; }
 
-        [Keyword(Name = "district")]
+        /// <summary>
+        /// 行政區
+        /// </summary>
+        [Keyword]
         public string District { get; set; }
     }
 }

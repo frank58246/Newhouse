@@ -11,39 +11,29 @@ namespace NewHouse.Service.Dtos
         public int Sid { get; set; }
 
         /// <summary>
-        /// Hid，對應Newhouse591.HID
-        /// </summary>
-        public int? Hid { get; set; }
-
-        /// <summary>
         /// 建案名稱
         /// </summary>
         public string BuildName { get; set; }
 
         /// <summary>
-        /// 建案介紹
-        /// </summary>
-        public string Info { get; set; }
-
-        /// <summary>
         /// 最高單價
         /// </summary>
-        public double? HighPinPrice { get; set; }
+        public double HighPinPrice { get; set; }
 
         /// <summary>
         /// 最低單價
         /// </summary>
-        public double? LowPinPrice { get; set; }
+        public double LowPinPrice { get; set; }
 
         /// <summary>
         /// 最高總價
         /// </summary>
-        public double? HighPrice { get; set; }
+        public double HighPrice { get; set; }
 
         /// <summary>
         /// 最低總價
         /// </summary>
-        public double? LowPrice { get; set; }
+        public double LowPrice { get; set; }
 
         /// <summary>
         /// 縣市

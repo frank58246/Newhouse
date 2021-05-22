@@ -25,7 +25,7 @@ namespace NewHouse.Service.Mapping
 
             this.CreateMap<NewhouseSearchParameterDto, NewhouseSearchParameterModel>();
 
-            this.CreateMap<NewhouseSimpleDto, NewhouseESModel>();
+            this.CreateMap<NewhouseESModel, NewhouseSimpleDto>();
         }
     }
 }

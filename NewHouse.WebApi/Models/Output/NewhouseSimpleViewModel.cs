@@ -13,19 +13,9 @@ namespace NewHouse.WebApi.Models.Output
         public int Sid { get; set; }
 
         /// <summary>
-        /// Hid，對應Newhouse591.HID
-        /// </summary>
-        public int? Hid { get; set; }
-
-        /// <summary>
         /// 建案名稱
         /// </summary>
         public string BuildName { get; set; }
-
-        /// <summary>
-        /// 建案介紹
-        /// </summary>
-        public string Info { get; set; }
 
         /// <summary>
         /// 最高單價
@@ -56,10 +46,5 @@ namespace NewHouse.WebApi.Models.Output
         /// 行政區
         /// </summary>
         public string District { get; set; }
-
-        /// <summary>
-        /// 更新時間
-        /// </summary>
-        public DateTime UpdateTime { get; set; }
     }
 }
