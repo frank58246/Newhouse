@@ -13,14 +13,14 @@ namespace NewHouse.WebApi.Models.Input
         public int SeaarchMode { get; set; }
 
         /// <summary>
-        /// 起始筆數，預設為1
+        /// 起始筆數，預設為0
         /// </summary>
         public int Start { get; set; }
 
         /// <summary>
         /// 抓取筆數，預設為20
         /// </summary>
-        public int Count { get; set; }
+        public int Count { get; set; } = 20;
 
         /// <summary>
         /// 縣市行政區域，用底線分隔，如"台中市_大里區"

@@ -17,6 +17,8 @@ namespace NewHouse.WebApi.Mapping
             this.CreateMap<NewhouseDto, NewhouseViewModel>();
 
             this.CreateMap<NewhouseSearchParameter, NewhouseSearchParameterDto>();
+
+            this.CreateMap<NewhouseSimpleDto, NewhouseSimpleViewModel>();
         }
     }
 }

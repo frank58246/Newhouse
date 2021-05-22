@@ -62,7 +62,7 @@ namespace NewHouse.Repository.Implement
                         Value = area.Item2
                     };
 
-                    shouldClause.Add(countyQuery && districeQuery);
+                    mustClauses.Add(countyQuery && districeQuery);
                 }
             }
 
@@ -72,8 +72,8 @@ namespace NewHouse.Repository.Implement
                 Size = parameter.Count,
                 Query = new BoolQuery
                 {
-                    Must = mustClauses,
-                    Should = shouldClause
+                    Must = mustClauses
+                    //Should = shouldClause
                 }
             };
 

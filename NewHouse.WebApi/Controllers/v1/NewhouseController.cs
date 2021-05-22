@@ -40,9 +40,17 @@ namespace NewHouse.WebApi.Controllers.v1
         {
             var paremeterDto = this._mapper.Map<NewhouseSearchParameterDto>(parameter);
 
-            await this._newhouseService.SearchAsync(paremeterDto);
+            var searchResult = await this._newhouseService.SearchAsync(paremeterDto);
 
-            return Ok();
+            var pageModel = new PageModel<NewhouseSimpleViewModel>()
+            {
+                Start = searchResult.Start,
+                Size = searchResult.Size,
+                Total = searchResult.Total,
+                Data = this._mapper.Map<List<NewhouseSimpleViewModel>>(searchResult.Data)
+            };
+
+            return Ok(pageModel);
         }
     }
 }

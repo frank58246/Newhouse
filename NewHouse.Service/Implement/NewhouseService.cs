@@ -54,9 +54,17 @@ namespace NewHouse.Service.Implement
         {
             var parameterModel = this._mapper.Map<NewhouseSearchParameterModel>(parameter);
 
-            var res = await this._newhouseElasticSearchRepository.SearchAreaAsync(parameterModel);
+            var searchResult = await this._newhouseElasticSearchRepository.SearchAreaAsync(parameterModel);
 
-            return new PageModel<NewhouseSimpleDto>();
+            var pageDto = new PageModel<NewhouseSimpleDto>()
+            {
+                Start = searchResult.Start,
+                Size = searchResult.Size,
+                Data = this._mapper.Map<List<NewhouseSimpleDto>>(searchResult.Data),
+                Total = searchResult.Total
+            };
+
+            return pageDto;
         }
 
         public async Task<IResult> SyncElasticSearchAsync(IEnumerable<NewhouseDto> newhouseDtos)
