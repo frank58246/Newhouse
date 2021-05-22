@@ -22,6 +22,12 @@ namespace NewHouse.Repository.Implement.Decorator
             this._newhouseRepository = newhouseRepository;
         }
 
+        public Task<IEnumerable<NewhouseModel>> GetAllAsync()
+        {
+            // 取得全部的方法暫不快取
+            return this._newhouseRepository.GetAllAsync();
+        }
+
         public async Task<NewhouseModel> GetAsync(int sid)
         {
             var keyPrefix = "NewhouseModel::";

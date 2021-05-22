@@ -19,6 +19,18 @@ namespace NewHouse.Repository.Implement
             this._connectionHelper = connectionHelper;
         }
 
+        public async Task<IEnumerable<NewhouseModel>> GetAllAsync()
+        {
+            var sql = @"
+                SELECT *
+                FROM Newhouse WITH(NOLOCK)";
+
+            using (var conn = this._connectionHelper.House)
+            {
+                return await conn.QueryAsync<NewhouseModel>(sql);
+            }
+        }
+
         public async Task<NewhouseModel> GetAsync(int hid)
         {
             var sql = @"

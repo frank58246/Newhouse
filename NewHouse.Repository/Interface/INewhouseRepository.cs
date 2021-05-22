@@ -13,6 +13,8 @@ namespace NewHouse.Repository.Interface
 
         Task<NewhouseModel> GetAsync(int sid);
 
+        Task<IEnumerable<NewhouseModel>> GetAllAsync();
+
         Task<IResult> UpdateAsync(NewhouseModel newhouseModel);
     }
 }

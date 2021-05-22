@@ -30,6 +30,13 @@ namespace NewHouse.Service.Implement
             this._newhouseElasticSearchRepository = newhouseElasticSearchRepository;
         }
 
+        public async Task<IEnumerable<NewhouseDto>> GetAllAsync()
+        {
+            var model = await this._newhouseRepository.GetAllAsync();
+
+            return this._mapper.Map<List<NewhouseDto>>(model);
+        }
+
         public async Task<NewhouseDto> GetAsync(int hid)
         {
             if (hid == 0)

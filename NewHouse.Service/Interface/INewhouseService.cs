@@ -11,6 +11,8 @@ namespace NewHouse.Service.Interface
     {
         Task<NewhouseDto> GetAsync(int hid);
 
+        Task<IEnumerable<NewhouseDto>> GetAllAsync();
+
         Task<IResult> InsertAsync(NewhouseDto newhouseDto);
 
         Task<IResult> UpdateAsync(NewhouseDto newhouseDto);
