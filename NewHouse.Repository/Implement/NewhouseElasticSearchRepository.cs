@@ -37,6 +37,7 @@ namespace NewHouse.Repository.Implement
 
             var shouldClause = new List<QueryContainer>();
 
+            // 縣市區域條件
             if (parameter.Areas != null && parameter.Areas.Count() > 0)
             {
                 // 把台北市_中正區，轉為<台北市,中正區>

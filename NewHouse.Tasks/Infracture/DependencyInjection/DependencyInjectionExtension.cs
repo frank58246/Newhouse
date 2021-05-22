@@ -8,12 +8,14 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using NewHouse.Common.Caching;
 using NewHouse.Common.Helper;
+using Hangfire.MissionControl;
 using NewHouse.Service.Mapping;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Linq;
 using System.Threading.Tasks;
+using NewHouse.Tasks.Infracture.Jobs;
 
 namespace NewHouse.Tasks.Infracture.DependencyInjection
 {
@@ -46,9 +48,10 @@ namespace NewHouse.Tasks.Infracture.DependencyInjection
                    .UseDashboardMetric(DashboardMetrics.FailedCount)
                    .UseDashboardMetric(DashboardMetrics.DeletedCount)
                    .UseDashboardMetric(DashboardMetrics.AwaitingCount)
-
                    .UseConsole()                                                                                                                //from Hangfire.Console
-                   .UseSqlServerStorage(connection));
+                   .UseSqlServerStorage(connection)
+                   .UseMissionControl(typeof(CrawlerJob).Assembly)
+                   );
         }
 
         public static void AddMapping(this IServiceCollection services)
