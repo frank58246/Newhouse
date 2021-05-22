@@ -32,10 +32,32 @@ namespace NewHouse.Repository.Implement
 
         public async Task<PageModel<NewhouseESModel>> SearchAreaAsync(NewhouseSearchParameterModel parameter)
         {
-            //TODO　串接真正的邏輯
             var mustClauses = new List<QueryContainer>();
 
             var shouldClause = new List<QueryContainer>();
+
+            // 價格條件
+            if (parameter.HighPrice > 0)
+            {
+                var rangeQuery = new NumericRangeQuery
+                {
+                    Field = Infer.Field<NewhouseESModel>(c => c.HighPrice),
+                    LessThanOrEqualTo = parameter.HighPrice
+                };
+
+                mustClauses.Add(rangeQuery);
+            }
+
+            if (parameter.LowPrice > 0)
+            {
+                var rangeQuery = new NumericRangeQuery
+                {
+                    Field = Infer.Field<NewhouseESModel>(c => c.LowPrice),
+                    GreaterThanOrEqualTo = parameter.LowPrice
+                };
+
+                mustClauses.Add(rangeQuery);
+            }
 
             // 縣市區域條件
             if (parameter.Areas != null && parameter.Areas.Count() > 0)
