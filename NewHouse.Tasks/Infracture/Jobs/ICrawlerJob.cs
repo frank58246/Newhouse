@@ -13,6 +13,9 @@ namespace NewHouse.Tasks.Infracture.Jobs
     public interface ICrawlerJob
     {
         [AutomaticRetry(Attempts = 0)]
+        void FetchAllNewHouse(PerformContext context, int pageSize);
+
+        [AutomaticRetry(Attempts = 0)]
         Task FetchNewHouseAsync(PerformContext context, int startHid, int endHid);
     }
 }

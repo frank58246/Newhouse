@@ -39,7 +39,8 @@ namespace NewHouse.Tasks.Infracture.Jobs
 
             var newhouseDtos = all591House
                 .Select(async x => await this._newhouseConverter.CovertAsync(x))
-                .Select(x => x.Result);
+                .Select(x => x.Result)
+                .ToList();
 
             // sync ElasticSearch
             context.WriteLine($"{DateTime.Now}: 更新資料至ES");
@@ -49,8 +50,7 @@ namespace NewHouse.Tasks.Infracture.Jobs
             context.WriteLine($"{DateTime.Now}: 更新至ES訊息:{result.Message}");
 
             // update DB
-            return;
-            foreach (var newhouseDto in newhouseDtos)
+            foreach (var newhouseDto in newhouseDtos.WithProgress(context))
             {
                 var newhouseInDatabase = await this._newhouseService
                     .GetAsync(newhouseDto.Hid.GetValueOrDefault());

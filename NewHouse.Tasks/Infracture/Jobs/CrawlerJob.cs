@@ -1,4 +1,5 @@
-﻿using Hangfire.Console;
+﻿using Hangfire;
+using Hangfire.Console;
 using Hangfire.MissionControl;
 using Hangfire.Server;
 using NewHouse.Service.Implement;
@@ -6,6 +7,7 @@ using NewHouse.Service.Interface;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace NewHouse.Tasks.Infracture.Jobs
@@ -13,7 +15,6 @@ namespace NewHouse.Tasks.Infracture.Jobs
     /// <summary>
     /// 爬蟲Job
     /// </summary>
-    [MissionLauncher(CategoryName = "Crawler")]
     public class CrawlerJob : ICrawlerJob
     {
         private readonly INewhouse591Service _newhouseService;
@@ -23,8 +24,18 @@ namespace NewHouse.Tasks.Infracture.Jobs
             this._newhouseService = newhouseService;
         }
 
-        [Mission(Name = "FetchNewHouseAsync",
-                 Description = "抓取所有新建案")]
+        public void FetchAllNewHouse(PerformContext context, int pageSize)
+        {
+            //var startHid = 100000;
+            var startHid = 130000;
+            var endHid = 130001;
+            for (int i = startHid; i < endHid; i += pageSize)
+            {
+                BackgroundJob.Enqueue<ICrawlerJob>(job =>
+                    job.FetchNewHouseAsync(null, i, i + pageSize));
+            }
+        }
+
         public async Task FetchNewHouseAsync(PerformContext context, int startHid, int endHid)
         {
             var hids = new List<int>();
@@ -60,6 +71,9 @@ namespace NewHouse.Tasks.Infracture.Jobs
                         var inserttResult = await this._newhouseService.InsertAsync(newhouse);
                         context.WriteLine($"{DateTime.Now} 新增hid:{hid}591新建案");
                     }
+
+                    // 避免太過密集打API
+                    Thread.Sleep(200);
                 }
                 catch (Exception)
                 {
