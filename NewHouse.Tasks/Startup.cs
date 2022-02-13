@@ -87,8 +87,11 @@ namespace NewHouse.Tasks
             // Hangfire
             var hangfireOption = new BackgroundJobServerOptions
             {
-                WorkerCount = Environment.ProcessorCount * 20
+                WorkerCount = Environment.ProcessorCount * 20,
+              
+                
             };
+            
             app.UseHangfireServer(hangfireOption);
             app.UseHangfireDashboard("/hangfire",
                                      new DashboardOptions

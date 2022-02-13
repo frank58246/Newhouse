@@ -26,14 +26,12 @@ namespace NewHouse.Tasks.Infracture.Jobs
 
         public void FetchAllNewHouse(PerformContext context, int pageSize)
         {
-            //var startHid = 100000;
-            var startHid = 130000;
-            var endHid = 130001;
-            for (int i = startHid; i < endHid; i += pageSize)
-            {
-                BackgroundJob.Enqueue<ICrawlerJob>(job =>
-                    job.FetchNewHouseAsync(null, i, i + pageSize));
-            }
+            // TODO 錯誤
+            var startHid = 100000;
+            var endHid = 100001;
+
+            BackgroundJob.Enqueue<ICrawlerJob>(job =>
+                job.FetchNewHouseAsync(null, startHid, endHid));
         }
 
         public async Task FetchNewHouseAsync(PerformContext context, int startHid, int endHid)
@@ -48,8 +46,9 @@ namespace NewHouse.Tasks.Infracture.Jobs
                 $"共計{endHid - startHid}筆");
 
             var bar = context.WriteProgressBar();
-            foreach (var hid in hids.WithProgress(bar))
+            for (int i = startHid; i < endHid; i++)
             {
+                var hid = i;
                 try
                 {
                     context.WriteLine($"{DateTime.Now} 開始抓取591新建案，hid:{hid}");
@@ -73,12 +72,12 @@ namespace NewHouse.Tasks.Infracture.Jobs
                     }
 
                     // 避免太過密集打API
-                    Thread.Sleep(200);
+                    //Thread.Sleep(200);
                 }
-                catch (Exception)
+                catch (Exception e)
                 {
                     context.WriteLine($"{DateTime.Now} hid:{hid}591新建案抓取失敗");
-                    continue;
+                    i += 100;
                 }
             }
 

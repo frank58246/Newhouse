@@ -16,6 +16,7 @@ using System.Configuration;
 using System.Linq;
 using System.Threading.Tasks;
 using NewHouse.Tasks.Infracture.Jobs;
+using Hangfire.SqlServer;
 
 namespace NewHouse.Tasks.Infracture.DependencyInjection
 {
@@ -34,9 +35,15 @@ namespace NewHouse.Tasks.Infracture.DependencyInjection
             var databaseHelper = serviceProvider.GetService<IDatabaseHelper>();
             var connection = databaseHelper.Hangfire;
 
+            var sqlOption = new SqlServerStorageOptions()
+            {
+                PrepareSchemaIfNecessary = false,
+                SchemaName = "HangfireTest"
+            };
             services.AddHangfire(config => config
                    .UseSimpleAssemblyNameTypeSerializer()
                    .UseRecommendedSerializerSettings()
+                   
                    .UseColouredConsoleLogProvider()
                    .UseDashboardMetric(DashboardMetrics.ServerCount)
                    .UseDashboardMetric(DashboardMetrics.RecurringJobCount)
@@ -49,7 +56,7 @@ namespace NewHouse.Tasks.Infracture.DependencyInjection
                    .UseDashboardMetric(DashboardMetrics.DeletedCount)
                    .UseDashboardMetric(DashboardMetrics.AwaitingCount)
                    .UseConsole()                                                                                                                //from Hangfire.Console
-                   .UseSqlServerStorage(connection)
+                   .UseSqlServerStorage(connection,sqlOption)
                    .UseMissionControl(typeof(CrawlerJob).Assembly)
                    );
         }

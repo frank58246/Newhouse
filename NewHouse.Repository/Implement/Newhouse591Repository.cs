@@ -11,6 +11,7 @@ using NewHouse.Repository.Model;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
@@ -33,7 +34,8 @@ namespace NewHouse.Repository.Implement
         public async Task<string> FetchDetailHtmlAsync(int hid)
         {
             var baseUrl = this._websiteUrlHelper.NewHouse591;
-            var url = baseUrl.AppendPathSegment("/home/housing/info")
+            var url = baseUrl.AppendPathSegment("/home/housing/detail")
+
                              .SetQueryParam("hid", hid);
 
             var response = await this._httpClient.GetAsync(url);

@@ -81,6 +81,9 @@ namespace Newhouse.DependencyInjection
         {
             services.AddTransient<INewhouseRepository, NewhouseRepository>()
                    .Decorate<INewhouseRepository, CachedNewhouseRepository>();
+
+            services.AddTransient<IDistirctRepository, DistirctRepository>()
+                .Decorate<IDistirctRepository, CachedDistirctRepository>();
         }
 
         private static void AddElasticSearch(this IServiceCollection services)
